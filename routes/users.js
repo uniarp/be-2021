@@ -5,5 +5,11 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+//exemplo de rota/ respondendo com json
+router.get('/exemplo', function(req, res, next) {
+  res.send({
+    nome: 'Sam',
+  });
+});
 
 module.exports = router;
