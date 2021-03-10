@@ -11,7 +11,7 @@ app.get('/', (req, res, next) => {
 // POST method route
 app.post('/', (req, res, next) => {
   res.status(201).send({
-      
+      mensagem: 'OK - POST - Vistoria'
   })
 });
 
