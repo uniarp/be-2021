@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var app = express();
 
 // GET method route
 router.get('/', (req, res, next) => {
