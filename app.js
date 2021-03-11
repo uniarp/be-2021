@@ -6,10 +6,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var vistoriaRouter = require('./routers/vistoria');
-var reservaEquipamentosRouter = require('./routers/reservaEquipamentos');
-var usuariosRouter = require('./routers/usuarios');
-var reservaSalasRouter = require('./routers/reservaSalas');
+var vistoriaRouter = require('./routes/vistoria');
+var reservaEquipamentosRouter = require('./routes/reservaEquipamentos');
+var usuariosRouter = require('./routes/usuarios');
+var reservaSalasRouter = require('./routes/reservaSalas');
+var equipamentosRouter = require('./routes/equipamentos');
+var laboratoriosInformaticaRouter = require('./routes/laboratoriosInformatica');
+var incidentesRouter = require('./routes/incidentes');
+var questoesRouter = require('./routes/questoes')
 
 var app = express();
 
@@ -29,6 +33,10 @@ app.use('/vistoria', vistoriaRouter);
 app.use('/reservaEquipamentos', reservaEquipamentosRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/reservaSalas', reservaSalasRouter);
+app.use('/equipamentos', equipamentosRouter);
+app.use('/laboratoriosinformatica', laboratoriosInformaticaRouter);
+app.use('/incidentes', incidentesRouter);
+app.use('/questoes', questoesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
