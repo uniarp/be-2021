@@ -13,5 +13,17 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "pg": "^8.5.1"
-  }
+  },
+  "description": "Back-end da aplicação do Apoio da Universidade Alto Vale do Rio do Peixe feito no primeiro semestre de 2021.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uniarp/be-2021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uniarp/be-2021/issues"
+  },
+  "homepage": "https://github.com/uniarp/be-2021#readme"
 }
