@@ -1,16 +1,10 @@
 var express = require('express');
+const connect = require('../bd');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-const bd = require('../bd')
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send(bd);
+  res.send({ hora: connect.connect() });
 });
 
 module.exports = router;
