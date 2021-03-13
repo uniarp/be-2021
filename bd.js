@@ -18,10 +18,22 @@ async function connect() {
     const res = await client.query('SELECT NOW()');
     console.log(res.rows[0]);
     client.release();
- 
+    
     //guardando para usar sempre o mesmo
     global.connection = pool;
     return pool.connect();
 }
-connect()
+
+async function select(query) {
+    const client = await connect();
+    const res = await client.query(query);
+    resultado = res.rows;
+    console.table(resultado) // exibe resultado console
+    return resultado;
+}
+select('SELECT * FROM sala')
+select('SELECT * FROM questao')
+
+module.exports = { select }
+
 module.exports = {connect};
