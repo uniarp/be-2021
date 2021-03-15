@@ -7,9 +7,22 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var materiaisRouter = require('./routes/materiais');
- var cursosRouter = require('./routes/cursos');
+var cursosRouter = require('./routes/cursos');
 var disciplinasRouter = require('./routes/disciplinas');
 var entregasRouter = require('./routes/entregas');
+var vistoriaRouter = require('./routes/vistoria');
+var reservaEquipamentosRouter = require('./routes/reservaEquipamentos');
+var usuariosRouter = require('./routes/usuarios');
+var reservaSalasRouter = require('./routes/reservaSalas');
+var equipamentosRouter = require('./routes/equipamentos');
+var laboratoriosInformaticaRouter = require('./routes/laboratoriosInformatica');
+var incidentesRouter = require('./routes/incidentes');
+var questoesRouter = require('./routes/questoes');
+var salasRouter = require('./routes/salas');
+var salasEspeciaisRouter = require('./routes/salasEspeciais');
+var softwaresRouter = require('./routes/softwares');
+var tipoEquipamentoRouter = require('./routes/tipoEquipamentos');
+var materiaisRouter = require('./routes/materiais');
 
 var app = express();
 
@@ -29,6 +42,19 @@ app.use('/materiais', materiaisRouter);
  app.use('/cursos', cursosRouter);
 app.use('/disciplinas', disciplinasRouter);
 app.use('/entregas', entregasRouter);
+app.use('/vistoria', vistoriaRouter);
+app.use('/reservaEquipamentos', reservaEquipamentosRouter);
+app.use('/usuarios', usuariosRouter);
+app.use('/reservaSalas', reservaSalasRouter);
+app.use('/equipamentos', equipamentosRouter);
+app.use('/laboratoriosinformatica', laboratoriosInformaticaRouter);
+app.use('/incidentes', incidentesRouter);
+app.use('/questoes', questoesRouter);
+app.use('/salas',salasRouter);
+app.use('/salasEspeciais', salasEspeciaisRouter);
+app.use('/softwares', softwaresRouter);
+app.use('/tipoEquipamentos', tipoEquipamentoRouter);
+app.use('/materiais', materiaisRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
