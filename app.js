@@ -6,6 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var materiaisRouter = require('./routes/materiais');
+var cursosRouter = require('./routes/cursos');
+var disciplinasRouter = require('./routes/disciplinas');
+var entregasRouter = require('./routes/entregas');
 var vistoriaRouter = require('./routes/vistoria');
 var reservaEquipamentosRouter = require('./routes/reservaEquipamentos');
 var usuariosRouter = require('./routes/usuarios');
@@ -34,6 +38,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/materiais', materiaisRouter);
+ app.use('/cursos', cursosRouter);
+app.use('/disciplinas', disciplinasRouter);
+app.use('/entregas', entregasRouter);
 app.use('/vistoria', vistoriaRouter);
 app.use('/reservaEquipamentos', reservaEquipamentosRouter);
 app.use('/usuarios', usuariosRouter);
