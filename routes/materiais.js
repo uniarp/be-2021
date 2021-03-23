@@ -37,7 +37,7 @@ router.get('/:id/excluir', function(req, res){
     res.status(200).send({
         resultado: "Material "+id +" foi excluida"
     })
-})
+});
 
 // POST- Alterar um material
 router.get('/12/alterar', function(req, res){
@@ -45,6 +45,7 @@ router.get('/12/alterar', function(req, res){
     res.status(200).send({
         resultado:"Material "+id+"  foi alterada"
     })
+});
 
 /* GET /materiais/ */
 router.get('/', function(req, res, next) {
