@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-// GET /Usuario/ *
-router.get('/', (req, res, next) => {
+/* GET /usuarios */
+router.get('/', function(req, res, next) {
   res.status(200).send({
       mensagem: 'GET Usuarios',
       id : 1,
@@ -11,16 +11,52 @@ router.get('/', (req, res, next) => {
       nivel : '1',
       nomeCompleto : 'Xavier Silva',
       email : 'email@email.com'
+    },
+    {
+      id : 2,
+      login : 'ramon',
+      senha : '12345',
+      nivel : '2',
+      nomeCompleto : 'Inherits',
+      email : 'r@r.com'
   })
 });
 
-
-// POST /usuarios/{id}/promover
-router.post('/:id_usuario/promover', (req, res, next) => {
-  const id = req.params.id_usuario
+/* POST /usuarios/cadastrar */
+router.post('/cadastrar', function(req, res, next) {
+  const usuario = req.params.usuario
   res.status(201).send({
-      mensagem: 'OK - POST - Usuarios',
-      id : '77',
+      mensagem : 'POST Cadastrar Usuario',
+      id : 2,
+      login : 'ramon',
+      senha : '12345',
+      nivel : '2',
+      nomeCompleto : 'Inherits',
+      email : 'r@r.com'
+    })
+})
+
+/* POST /usuarios/{id}/alterar. */
+router.post('/:id_usuario/alterar', function(req, res, next) {
+  const id = req.params.id_usuario
+  const sala = req.params.sala
+  res.status(200).send({
+    mensagem: 'GET Alterar Usuarios',
+    id : 1,
+    login : 'usuario',
+    senha : 'qwerty',
+    nivel : '1',
+    nomeCompleto : 'Xavier Silva',
+    email : 'email@email.com'
+  })
+});
+
+/* GET /usuarios/{id}/excluir. */
+router.get('/:id_usuario/excluir', function(req, res, next) {
+  const id = req.params.id_usuario
+  res.status(200).send({
+      mensagem : 'GET ID excluir Usuario',
+      id : id
   })
 });
 
