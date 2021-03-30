@@ -13,7 +13,8 @@ var entregasRouter = require('./routes/entregas');
 var vistoriaRouter = require('./routes/vistoria');
 var reservaEquipamentosRouter = require('./routes/reservaEquipamentos');
 var usuariosRouter = require('./routes/usuarios');
-var professoresRouter = require ('./routes/professores')
+var professoresRouter = require ('./routes/professores');
+var coordenadoresRouter = require ('./routes/coordenadores')
 var reservaSalasRouter = require('./routes/reservaSalas');
 var equipamentosRouter = require('./routes/equipamentos');
 var laboratoriosInformaticaRouter = require('./routes/laboratoriosInformatica');
@@ -48,7 +49,8 @@ app.use('/entregas', entregasRouter);
 app.use('/vistoria', vistoriaRouter);
 app.use('/reservaEquipamentos', reservaEquipamentosRouter);
 app.use('/usuarios', usuariosRouter);
-app.use('/professores', professoresRouter)
+app.use('/professores', professoresRouter);
+app.use('/coordenadores', coordenadoresRouter);
 app.use('/reservaSalas', reservaSalasRouter);
 app.use('/equipamentos', equipamentosRouter);
 app.use('/laboratoriosinformatica', laboratoriosInformaticaRouter);
