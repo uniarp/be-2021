@@ -42,7 +42,7 @@ router.get('/excluir', (req, res, next) => {
 });
 
 // POST /vistoria/{id}/alterar
-router.post('/:id_vistoria/alterar', (req, res, next) => {
+router.post('/:id_vistorias/alterar', (req, res, next) => {
   const id = req.params.id_vistoria
   res.status(201).send({
       mensagem: 'POST - Vistoria Alterada',
