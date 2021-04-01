@@ -34,7 +34,7 @@ router.get('/cadastrar', (req, res, next) => {
 });
 
 // GET /vistorias/{id}/excluir
-router.get('/excluir', (req, res, next) => {
+router.get('/:id_vistorias/excluir', (req, res, next) => {
   const id = req.params.id_vistoria
   res.status(200).send({
       mensagem : 'Vistoria Excluida'
