@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /equipamentos/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Equipamento',
         id : 1,
         dataAquisicao : '01/03/2021',
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 /* GET /equipamentos/{id}/alterar. */
 router.get('/:id_equipamento/alterar', function(req, res, next) {
     const id = req.params.id_equipamento
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Alterar Equipamento',
         id : id
     })
@@ -35,7 +35,7 @@ router.post('/cadastrar', function(req, res, next) {
 /* GET /equipamentos/{id}/excluir. */
 router.get('/:id_equipamento/excluir', function(req, res, next) {
     const id = req.params.id_equipamento
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Excluir Equipamento',
         id : id
     })

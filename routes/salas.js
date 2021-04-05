@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /salas/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Salas',
         id : 5,
         numeroSala: 222,
@@ -34,7 +34,7 @@ router.post('/cadastrar', function(req, res, next) {
 router.post('/:id_sala/alterar', function(req, res, next) {
     const id = req.params.id_sala
     const sala = req.params.sala
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Alterar Sala',
         id : 1,
         numeroSala: 321,
@@ -46,7 +46,7 @@ router.post('/:id_sala/alterar', function(req, res, next) {
 /* GET /salas/{id}/excluir. */
 router.get('/:id_sala/excluir', function(req, res, next) {
     const id = req.params.id_sala
-    res.status(200).send({
+    res.json({
         mensagem : 'GET ID excluir Sala',
         id : id
     })

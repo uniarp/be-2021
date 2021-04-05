@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /coordenadores */
 router.get('/', function(req, res, next) {
-  res.status(200).send({
+  res.json({
       mensagem: 'GET coordenador',
       id : 1,
       login : 'coordenador',
@@ -40,7 +40,7 @@ router.post('/cadastrar', function(req, res, next) {
 router.post('/:id_coordenador/alterar', function(req, res, next) {
   const id = req.params.id_coordenador
   const sala = req.params.sala
-  res.status(200).send({
+  res.json({
     mensagem: 'GET Alterar coordenadors',
     id : 1,
     login : 'coordenador',
@@ -54,7 +54,7 @@ router.post('/:id_coordenador/alterar', function(req, res, next) {
 /* GET /coordenadores/{id}/excluir. */
 router.get('/:id_coordenador/excluir', function(req, res, next) {
   const id = req.params.id_coordenador
-  res.status(200).send({
+  res.json({
       mensagem : 'GET ID excluir coordenador',
       id : id
   })

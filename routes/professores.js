@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /professores */
 router.get('/', function(req, res, next) {
-  res.status(200).send({
+  res.json({
       mensagem: 'GET professor',
       id : 1,
       login : 'professor',
@@ -40,7 +40,7 @@ router.post('/cadastrar', function(req, res, next) {
 router.post('/:id_professor/alterar', function(req, res, next) {
   const id = req.params.id_professor
   const sala = req.params.sala
-  res.status(200).send({
+  res.json({
     mensagem: 'GET Alterar professors',
     id : 1,
     login : 'professor',
@@ -54,7 +54,7 @@ router.post('/:id_professor/alterar', function(req, res, next) {
 /* GET /professores/{id}/excluir. */
 router.get('/:id_professor/excluir', function(req, res, next) {
   const id = req.params.id_professor
-  res.status(200).send({
+  res.json({
       mensagem : 'GET ID excluir professor',
       id : id
   })

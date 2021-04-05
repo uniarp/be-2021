@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /questoes/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : ' GET Questao',
         id : 12,
         pergunta : 'O que fazer quando o bicho pega?',
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 /* GET /questoes/{id}/alterar. */
 router.get('/:id_questao/alterar', function(req, res, next) {
     const id = req.params.id_questao
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Alterar Questao',
         id : id
     })
@@ -33,7 +33,7 @@ router.post('/cadastrar', function(req, res, next) {
 /* GET /questoes/{id}/excluir. */
 router.get('/:id_questao/excluir', function(req, res, next) {
     const id = req.params.id_questao
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Excluir Questao',
         id : id
     })

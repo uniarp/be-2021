@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /softwares/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Softwares',
         id : 5,
         nome: 'Net Beans 8.2',
@@ -32,7 +32,7 @@ router.post('/cadastrar', function(req, res, next) {
 router.post('/:id_software/alterar', function(req, res, next) {
     const id = req.params.id_software
     const software = req.params.software
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Alterar Software',
         id : 1,
         nome: 'Acrobat Adobe Reader',
@@ -42,7 +42,7 @@ router.post('/:id_software/alterar', function(req, res, next) {
 /* GET /salasEspeciais/{id}/excluir. */
 router.get('/:id_software/excluir', function(req, res, next) {
     const id = req.params.id_software
-    res.status(200).send({
+    res.json({
         mensagem : 'GET ID excluir Software',
         id : id
     })

@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /incidentes/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Incidente',
         id : 49,
         descricao : 'Estou com problemas no ar condicionado',
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 /* GET /incidentes/{id}/alterar. */
 router.get('/:id_incidente/alterar', function(req, res, next) {
     const id = req.params.id_incidente
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Alterar Incidente',
         id : id
     })
@@ -40,7 +40,7 @@ router.post('/cadastrar', function(req, res, next) {
 /* GET /incidentes/{id}/excluir. */
 router.get('/:id_incidente/excluir', function(req, res, next) {
     const id = req.params.id_incidente
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Excluir incidente',
         id : id
     })

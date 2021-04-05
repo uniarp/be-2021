@@ -29,7 +29,7 @@ router.post('/cadastrar', function(req,res){
 // excuir entrega
 router.get('/:id/excluir', function(req,res){
     var id = req.params.id;
-    res.status(200).send({
+    res.json({
         resultado:"Entrega "+id+" foi excluida"
     })
 })
@@ -37,7 +37,7 @@ router.get('/:id/excluir', function(req,res){
 // alterar uma entrega
 router.get('/:id/alterar',function(req,res){
     var id = req.params.id;
-    res.status(200).send(
+    res.json(
         "Entrega "+id+" foi alterada"
     )
 })

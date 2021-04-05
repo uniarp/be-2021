@@ -34,7 +34,7 @@ router.get('/', function (req, res){
 //get - excluir um material especifico
 router.get('/:id/excluir', function(req, res){
     var id = req.params.id;
-    res.status(200).send({
+    res.json({
         resultado: "Material "+id +" foi excluida"
     })
 });
@@ -42,14 +42,14 @@ router.get('/:id/excluir', function(req, res){
 // POST- Alterar um material
 router.get('/12/alterar', function(req, res){
     var  id = req.params.id;
-    res.status(200).send({
+    res.json({
         resultado:"Material "+id+"  foi alterada"
     })
 });
 
 /* GET /materiais/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Materiais',
         id : 5,
         nome: 'Canetão Azul',

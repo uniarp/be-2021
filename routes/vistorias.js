@@ -3,7 +3,7 @@ var router = express.Router();
 
 // GET /vistorias
 router.get('/', (req, res, next) => {
-  res.status(200).send({
+  res.json({
       mensagem: 'GET - Vistoria',
       id : '1',
       emConformidade : 'Sim',
@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
 // GET /vistorias/cadastrar
 router.post('/cadastrar', (req, res, next) => {
   const vistoria = req.params.vistoria;
-  res.status(200).send({
+  res.json({
       mensagem: 'GET - Vistoria Cadastrada',
       id : '1',
       emConformidade : 'Sim',
@@ -39,7 +39,7 @@ router.post('/cadastrar', (req, res, next) => {
 router.get('/:id_vistoria/excluir', (req, res, next) => {
   const id = req.params.id_vistoria;
 
-  res.status(200).send({
+  res.json({
       mensagem : 'Vistoria Excluida'
   })
 });

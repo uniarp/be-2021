@@ -4,7 +4,7 @@ var router = express.Router();
 
 // GET reservaEquipamentos *
 router.get('/', (req, res, next) => {
-  res.status(200).send({
+  res.json({
       mensagem: 'OK - GET - Reserva Equipamento',
       id : '1',
       dataEntrega : '26/02/2021',
@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 // GET Excluir
 router.get('/excluir', (req, res, next) => {
   const id = req.params.id_reservaEquipamentos
-  res.status(200).send({
+  res.json({
       mensagem: 'OK - Exclusao Feita',
   })
 });
@@ -33,7 +33,7 @@ router.get('/excluir', (req, res, next) => {
 // GET reservaEquipamentos/porProfessor
 router.get('/porProfessor', (req, res, next) => {
   const id = req.params.id_reservaEquipamentos
-  res.status(200).send({
+  res.json({
       mensagem: 'OK - Por Professor',
       id : '1',
       dataEntrega : '26/02/2021',

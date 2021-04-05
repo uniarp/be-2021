@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /laboratoriosinformatica/ */
 router.get('/', function(req, res, next) {
-    res.status(200).send({
+    res.json({
         mensagem : 'GET LaboratoriosInformatica',
         id : 11,
         numeroSala : 908,
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 /* GET /laboratoriosinformatica/{id}/alterar. */
 router.get('/:id_laboratoriosinformatica/alterar', function(req, res, next) {
     const id = req.params.id_laboratoriosinformatica
-    res.status(200).send({
+    res.json({
         mensagem : 'GET ID Alterar LaboratoriosInformatica',
         id : id
     })
@@ -39,7 +39,7 @@ router.post('/cadastrar', function(req, res, next) {
 /* GET /laboratoriosinformatica/{id}/excluir. */
 router.get('/:id_laboratoriosinformatica/excluir', function(req, res, next) {
     const id = req.params.id_laboratoriosinformatica
-    res.status(200).send({
+    res.json({
         mensagem : 'GET Excluir Equipamento',
         id : id
     })

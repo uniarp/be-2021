@@ -26,7 +26,7 @@ router.post('/cadastrar', function(req, res){
 //excluir curso
 router.get('/:id/excluir', function(req,res){
     var id=req.params.id
-    res.status(200).send(
+    res.json(
         {
            resultado: "Curso" + id +" foi excluido"
         }
@@ -36,7 +36,7 @@ router.get('/:id/excluir', function(req,res){
 //alterar curso
 router.get('/:id/alterar', function(req,res){
     var id=req.params.id
-    res.status(200).send({
+    res.json({
         resultado: "Curso" + id +" foi alterado"
     })
 });

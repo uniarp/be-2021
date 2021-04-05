@@ -15,7 +15,7 @@ router.post('/cadastrar', function(req, res){
 //excluir uma disciplina passando o seu id
 router.get('/:id/excluir', function(req,res){
     var id = req.params.id
-    res.status(200).send(
+    res.json(
         "Disciplina "+ id + " foi excluida"
     )
 });
@@ -44,7 +44,7 @@ router.get('/', function(req, res){
 //Alterar uma disciplina
 router.get('/:id/alterar', function(req,res,next){
     var id = req.params.id;
-    res.status(200).send( 
+    res.json( 
         "Disciplina "+ id + " foi alterada"
     )
 });
