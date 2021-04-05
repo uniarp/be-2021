@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET /tipoEquipamentos/ */
 router.get('/', function(req, res, next) {
-    res.json({
+    res.status(200).json({
         mensagem : 'GET tipoEquipamentos',
         id : 1,
         nome: 'Impressora',
