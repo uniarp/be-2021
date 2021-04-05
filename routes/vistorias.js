@@ -22,7 +22,8 @@ router.get('/', (req, res, next) => {
 });
 
 // GET /vistoria/cadastrar
-router.get('/cadastrar', (req, res, next) => {
+router.post('/cadastrar', (req, res, next) => {
+  const vistoria = req.params.vistoria;
   res.status(200).send({
       mensagem: 'GET - Vistoria Cadastrada',
       id : '1',
@@ -34,8 +35,8 @@ router.get('/cadastrar', (req, res, next) => {
 });
 
 // GET /vistoria/{id}/excluir
-router.get('/excluir', (req, res, next) => {
-  const id = req.params.id_vistoria
+router.get('/:id_vistoria/excluir', (req, res, next) => {
+  const id = req.params.id_vistoria;
   res.status(200).send({
       mensagem : 'Vistoria Excluida'
   })
@@ -43,7 +44,7 @@ router.get('/excluir', (req, res, next) => {
 
 // POST /vistoria/{id}/alterar
 router.post('/:id_vistoria/alterar', (req, res, next) => {
-  const id = req.params.id_vistoria
+  const id = req.params.id_vistoria;
   res.status(201).send({
       mensagem: 'POST - Vistoria Alterada',
       id : '77',
