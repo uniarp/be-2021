@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
-// GET /vistoria
+// GET /vistorias
 router.get('/', (req, res, next) => {
   res.status(200).send({
       mensagem: 'GET - Vistoria',
@@ -21,7 +20,8 @@ router.get('/', (req, res, next) => {
   })
 });
 
-// GET /vistoria/cadastrar
+
+// GET /vistorias/cadastrar
 router.post('/cadastrar', (req, res, next) => {
   const vistoria = req.params.vistoria;
   res.status(200).send({
@@ -34,17 +34,20 @@ router.post('/cadastrar', (req, res, next) => {
   })
 });
 
-// GET /vistoria/{id}/excluir
+
+// GET /vistorias/{id}/excluir
 router.get('/:id_vistoria/excluir', (req, res, next) => {
   const id = req.params.id_vistoria;
+
   res.status(200).send({
       mensagem : 'Vistoria Excluida'
   })
 });
 
-// POST /vistoria/{id}/alterar
+
+// POST /vistorias/{id}/alterar
 router.post('/:id_vistoria/alterar', (req, res, next) => {
-  const id = req.params.id_vistoria;
+  const id = req.params.id_vistoria
   res.status(201).send({
       mensagem: 'POST - Vistoria Alterada',
       id : '77',
