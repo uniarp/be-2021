@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST /coordenadores/cadastrar */
-router.post('/cadastrar', function(req, res, next) {
+router.post('/cadastrar', function(req, res) {
     const data = {
         login : req.body.loginCoordenador,
         senha : req.body.senhaCoordenador,
@@ -37,7 +37,7 @@ router.post('/cadastrar', function(req, res, next) {
 })
 
 /* POST /coordenadores/{id}/alterar. */
-router.post('/:id_coordenador/alterar', function(req, res, next) {
+router.post('/:id_coordenador/alterar', function(req, res) {
     const id = req.params.id_coordenador;
     const data = {
         login : req.body.loginCoordenador,
@@ -51,7 +51,7 @@ router.post('/:id_coordenador/alterar', function(req, res, next) {
 });
 
 /* GET /coordenadores/{id}/excluir. */
-router.get('/:id_coordenador/excluir', function(req, res, next) {
+router.get('/:id_coordenador/excluir', function(req, res) {
     const id = req.params.id_coordenador;
     res.json({
         id : id
