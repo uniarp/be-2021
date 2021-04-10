@@ -1,18 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-//POST - Cadastrar um material
-router.post('/cadastrar', function(req, res){
-    res.status(200).json({
-        id : 1,
-        nome: "Canetão Azul",
-        qtd: 10,
-        descricao: "Azul com ponta média",
-        marca:  "Pilot"
-    });
-});
-// GET- Listar todos os materiais
-router.get('/', function (req, res){
+/* GET /materiais */
+router.get('/', function(req, res){
     res.status(200).json([
         {
             id : 5,
@@ -28,35 +18,38 @@ router.get('/', function (req, res){
             descricao: "Vermelho com ponta média",
             marca:  "Pilot"
         }
-    ])
+    ]);
 });
 
-//get - excluir um material especifico
-router.get('/:id/excluir', function(req, res){
-    var id = req.params.id;
-    res.json({
-        resultado: "Material "+id +" foi excluida"
-    })
+/* POST /materiais/cadastrar */
+router.post('/cadastrar', function(req, res){
+    const data = {
+        nome : req.body.nomeMaterial,
+        qtd : req.body.qtdMaterial,
+        descricao : req.body.descricaoMaterial,
+        marca :  req.body.marcaMaterial
+    };
+    res.status(201).json(data);
 });
 
-// POST- Alterar um material
-router.get('/12/alterar', function(req, res){
-    var  id = req.params.id;
-    res.json({
-        resultado:"Material "+id+"  foi alterada"
-    })
+/* POST /materiais/{id}/alterar */
+router.post('/:id_material/alterar', function(req, res){
+    const id = req.params.id_material;
+    const data = {
+        nome : req.body.nomeMaterial,
+        qtd : req.body.qtdMaterial,
+        descricao : req.body.descricaoMaterial,
+        marca :  req.body.marcaMaterial
+    };
+    res.status(200).json(data);
 });
 
-/* GET /materiais/ */
-router.get('/', function(req, res, next) {
-    res.json({
-        mensagem : 'GET Materiais',
-        id : 5,
-        nome: 'Canetão Azul',
-        qtd: 10,
-        descricao: 'Azul com ponta fina',
-        marca:  'Pilot',
-        })
+/* GET /materiais/{id}/excluir */
+router.get('/:id_material/excluir', function(req, res){
+    const id = req.params.id_material;
+    res.status(200).json({
+        id : id
+    });
 });
 
 module.exports = router;
