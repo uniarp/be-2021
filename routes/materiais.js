@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /materiais */
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
     res.status(200).json([
         {
             id : 5,
@@ -22,7 +22,7 @@ router.get('/', function(req, res){
 });
 
 /* POST /materiais/cadastrar */
-router.post('/cadastrar', function(req, res){
+router.post('/cadastrar', function(req, res) {
     const data = {
         nome : req.body.nomeMaterial,
         qtd : req.body.qtdMaterial,
@@ -33,7 +33,7 @@ router.post('/cadastrar', function(req, res){
 });
 
 /* POST /materiais/{id}/alterar */
-router.post('/:id_material/alterar', function(req, res){
+router.post('/:id_material/alterar', function(req, res) {
     const id = req.params.id_material;
     const data = {
         nome : req.body.nomeMaterial,
@@ -45,7 +45,7 @@ router.post('/:id_material/alterar', function(req, res){
 });
 
 /* GET /materiais/{id}/excluir */
-router.get('/:id_material/excluir', function(req, res){
+router.get('/:id_material/excluir', function(req, res) {
     const id = req.params.id_material;
     res.status(200).json({
         id : id

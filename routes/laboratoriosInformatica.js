@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /laboratoriosInformatica/ */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.status(200).json([
         {
             id : 11,
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST /laboratoriosinformatica/cadastrar */
-router.post('/cadastrar', function(req, res, next) {
+router.post('/cadastrar', function(req, res) {
     const data = {
         numeroSala : req.body.numeroSalaLaboratorioInformatica,
         localizacao : req.body.localizacaoLaboratorioInformatica,
@@ -37,7 +37,7 @@ router.post('/cadastrar', function(req, res, next) {
 });
 
 /* POST /laboratoriosinformatica/{id}/alterar. */
-router.post('/:id_laboratoriosinformatica/alterar', function(req, res, next) {
+router.post('/:id_laboratoriosinformatica/alterar', function(req, res) {
     const id = req.params.id_laboratorioinformatica
     const data = {
         numeroSala : req.body.numeroSalaLaboratorioInformatica,
@@ -50,7 +50,7 @@ router.post('/:id_laboratoriosinformatica/alterar', function(req, res, next) {
 });
 
 /* GET /laboratoriosinformatica/{id}/excluir. */
-router.get('/:id_laboratorioinformatica/excluir', function(req, res, next) {
+router.get('/:id_laboratorioinformatica/excluir', function(req, res) {
     const id = req.params.id_laboratorioinformatica;
     res.status(200).json({
         id : id

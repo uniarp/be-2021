@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /entregas */
-router.get('/', function(req,res){
+router.get('/', function(req, res){
     res.status(200).json([
         {
             id : 2,
@@ -18,7 +18,7 @@ router.get('/', function(req,res){
 });
 
 /* POST /entregas/cadastrar */
-router.post('/cadastrar', function(req,res){
+router.post('/cadastrar', function(req, res){
     const data = {
         data : req.body.dataEntrega,
         qtd : req.body.qtdEntrega
@@ -27,7 +27,7 @@ router.post('/cadastrar', function(req,res){
 });
 
 /* POST /entregas/{id}/alterar */
-router.get('/:id_entrega/excluir', function(req,res){
+router.get('/:id_entrega/excluir', function(req, res){
     const id = req.params.id_entrega;
     const data = {
         data : req.body.dataEntrega,
@@ -37,7 +37,7 @@ router.get('/:id_entrega/excluir', function(req,res){
 });
 
 /* GET /entregas/{id}/excluir */
-router.get('/:id_entrega/alterar',function(req,res){
+router.get('/:id_entrega/alterar',function(req, res){
     const id = req.params.id_entrega;
     res.json({
         id : id

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /disciplinas */
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
     res.status(200).json([
         {
             id: 1,
@@ -20,7 +20,7 @@ router.get('/', function(req, res){
 });
 
 /* POST /disciplinas/cadastrar */
-router.post('/cadastrar', function(req, res){
+router.post('/cadastrar', function(req, res) {
     const data = {
         nome : req.body.nomeDisciplina,
         periodo : req.body.periodoDisciplina,
@@ -30,7 +30,7 @@ router.post('/cadastrar', function(req, res){
 });
 
 /* POST /disciplinas/{id}/alterar */
-router.get('/:id_disciplina/alterar', function(req,res,next){
+router.get('/:id_disciplina/alterar', function(req, res) {
     const id = req.params.id_disciplina;
     const data = {
         nome : req.body.nomeDisciplina,
@@ -41,7 +41,7 @@ router.get('/:id_disciplina/alterar', function(req,res,next){
 });
 
 /* GET /disciplinas/{id}/excluir */
-router.get('/:id_disciplina/excluir', function(req,res){
+router.get('/:id_disciplina/excluir', function(req, res) {
     const id = req.params.id_disciplina
     res.status(200).json({
         id : id

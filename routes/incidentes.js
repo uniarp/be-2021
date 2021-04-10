@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 /* GET /incidentes/ */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.status(200).json([
         {
             id : 49,
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST /incidentes/cadastrar */
-router.post('/cadastrar', function(req, res, next) {
+router.post('/cadastrar', function(req, res) {
     const data = {
         descricao : req.body.descricaoIncidente,
         tempoAbertura : req.body.tempoAberturaIncidente,
@@ -36,7 +36,7 @@ router.post('/cadastrar', function(req, res, next) {
 });
 
 /* POST /incidentes/{id}/alterar. */
-router.post('/:id_incidente/alterar', function(req, res, next) {
+router.post('/:id_incidente/alterar', function(req, res) {
     const id = req.params.id_incidente;
     const data = {
         descricao : req.body.descricaoIncidente,
@@ -49,7 +49,7 @@ router.post('/:id_incidente/alterar', function(req, res, next) {
 });
 
 /* GET /incidentes/{id}/excluir. */
-router.get('/:id_incidente/excluir', function(req, res, next) {
+router.get('/:id_incidente/excluir', function(req, res) {
     const id = req.params.id_incidente;
     res.status(200).json({
         id : id

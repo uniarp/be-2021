@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /equipamentos/ */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.status(200).json([
         {
             id : 1,
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST /equipamentos/cadastrar */
-router.post('/cadastrar', function(req, res, next) {
+router.post('/cadastrar', function(req, res) {
     const data = {
         dataAquisicao : req.body.dataAquisicaoEquipamento,
         marca : req.body.marcaEquipamento,
@@ -30,7 +30,7 @@ router.post('/cadastrar', function(req, res, next) {
 });
 
 /* POST /equipamentos/{id}/alterar. */
-router.post('/:id_equipamento/alterar', function(req, res, next) {
+router.post('/:id_equipamento/alterar', function(req, res) {
     const id = req.params.id_equipamento;
     const data = {
         dataAquisicao : req.body.dataAquisicaoEquipamento,
@@ -41,7 +41,7 @@ router.post('/:id_equipamento/alterar', function(req, res, next) {
 });
 
 /* GET /equipamentos/{id}/excluir. */
-router.get('/:id_equipamento/excluir', function(req, res, next) {
+router.get('/:id_equipamento/excluir', function(req, res) {
     const id = req.params.id_equipamento;
     res.status(200).json({
         id : id
