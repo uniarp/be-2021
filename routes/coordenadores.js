@@ -2,25 +2,25 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /coordenadores */
-router.get('/', function(req, res, next) {
-    res.json({
-        mensagem: 'GET coordenador',
-        id : 1,
-        login : 'coordenador',
-        senha : 'qwerty',
-        nivel : '1',
-        nomeCompleto : 'Xavier Silva',
-        email : 'email@email.com'
-    },
-    {
-        id : 2,
-        login : 'ramon',
-        senha : '12345',
-        nivel : '2',
-        nomeCompleto : 'Inherits',
-        email : 'r@r.com'
-    })
-    console.log("GET /coordenadores/");
+router.get('/', function(req, res) {
+    res.status(200).json([
+        {
+            id : 1,
+            login : "coordenador",
+            senha : "qwerty",
+            nivel : "1",
+            nomeCompleto : "Xavier Silva",
+            email : "email@email.com"
+        },
+        {
+            id : 2,
+            login : "ramon",
+            senha : "12345",
+            nivel : "2",
+            nomeCompleto : "Inherits",
+            email : "r@r.com"
+        }
+    ]);
 });
 
 /* POST /coordenadores/cadastrar */
@@ -33,10 +33,9 @@ router.post('/cadastrar', function(req, res) {
         email : req.body.emailCoordenador
     };
     res.status(201).json(data);
-    console.log("POST /coordenadores/cadastrar");
-})
+});
 
-/* POST /coordenadores/{id}/alterar. */
+/* POST /coordenadores/{id}/alterar */
 router.post('/:id_coordenador/alterar', function(req, res) {
     const id = req.params.id_coordenador;
     const data = {
@@ -47,16 +46,14 @@ router.post('/:id_coordenador/alterar', function(req, res) {
         email : req.body.emailCoordenador
     };
     res.status(200).json(data);
-    console.log("POST /coordenadores/" + id + "/alterar");
 });
 
-/* GET /coordenadores/{id}/excluir. */
+/* GET /coordenadores/{id}/excluir */
 router.get('/:id_coordenador/excluir', function(req, res) {
     const id = req.params.id_coordenador;
-    res.json({
+    res.status(200).json({
         id : id
-    })
-    console.log("GET /coordenadores/" + id + "/excluir")
+    });
 });
 
 module.exports = router;
