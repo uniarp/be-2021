@@ -23,7 +23,7 @@ var questoesRouter = require('./routes/questoes');
 var salasRouter = require('./routes/salas');
 var salasEspeciaisRouter = require('./routes/salasEspeciais');
 var softwaresRouter = require('./routes/softwares');
-var tipoEquipamentoRouter = require('./routes/tipoEquipamentos');
+var tiposEquipamentoRouter = require('./routes/tiposEquipamentos');
 var materiaisRouter = require('./routes/materiais');
 
 var app = express();
@@ -59,7 +59,7 @@ app.use('/questoes', questoesRouter);
 app.use('/salas',salasRouter);
 app.use('/salasEspeciais', salasEspeciaisRouter);
 app.use('/softwares', softwaresRouter);
-app.use('/tipoEquipamentos', tipoEquipamentoRouter);
+app.use('/tiposEquipamento', tiposEquipamentoRouter);
 app.use('/materiais', materiaisRouter);
 
 // catch 404 and forward to error handler
