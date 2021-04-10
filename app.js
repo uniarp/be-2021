@@ -23,7 +23,7 @@ var questoesRouter = require('./routes/questoes');
 var salasRouter = require('./routes/salas');
 var salasEspeciaisRouter = require('./routes/salasEspeciais');
 var softwaresRouter = require('./routes/softwares');
-var tiposEquipamentoRouter = require('./routes/tiposEquipamentos');
+var tiposEquipamentoRouter = require('./routes/tiposEquipamento');
 var materiaisRouter = require('./routes/materiais');
 
 var app = express();
