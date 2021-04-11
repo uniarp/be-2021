@@ -28,7 +28,7 @@ router.post('/cadastrar', function(req, res) {
         qtdAlunos : req.body.qtdAlunosReservaSala,
         status : req.body.statusReservaSala,
         periodo : req.body.periodoReservaSala
-    }
+    };
     res.status(201).json(data);
 });
 
@@ -40,7 +40,7 @@ router.post('/:id_reservasala/alterar', function(req, res) {
         qtdAlunos : req.body.qtdAlunosReservaSala,
         status : req.body.statusReservaSala,
         periodo : req.body.periodoReservaSala
-    }
+    };
     res.status(200).json(data);
 });
 
