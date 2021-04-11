@@ -11,11 +11,11 @@ var cursosRouter = require('./routes/cursos');
 var disciplinasRouter = require('./routes/disciplinas');
 var entregasRouter = require('./routes/entregas');
 var vistoriasRouter = require('./routes/vistorias');
-var reservaEquipamentosRouter = require('./routes/reservaEquipamentos');
+var reservasEquipamentoRouter = require('./routes/reservasEquipamento');
 var usuariosRouter = require('./routes/usuarios');
 var professoresRouter = require ('./routes/professores');
 var coordenadoresRouter = require ('./routes/coordenadores')
-var reservaSalasRouter = require('./routes/reservaSalas');
+var reservaSalasRouter = require('./routes/reservasSala');
 var equipamentosRouter = require('./routes/equipamentos');
 var laboratoriosInformaticaRouter = require('./routes/laboratoriosInformatica');
 var incidentesRouter = require('./routes/incidentes');
@@ -23,7 +23,7 @@ var questoesRouter = require('./routes/questoes');
 var salasRouter = require('./routes/salas');
 var salasEspeciaisRouter = require('./routes/salasEspeciais');
 var softwaresRouter = require('./routes/softwares');
-var tipoEquipamentoRouter = require('./routes/tipoEquipamentos');
+var tiposEquipamentoRouter = require('./routes/tiposEquipamento');
 var materiaisRouter = require('./routes/materiais');
 
 var app = express();
@@ -47,11 +47,11 @@ app.use('/cursos', cursosRouter);
 app.use('/disciplinas', disciplinasRouter);
 app.use('/entregas', entregasRouter);
 app.use('/vistorias', vistoriasRouter);
-app.use('/reservaEquipamentos', reservaEquipamentosRouter);
+app.use('/reservasequipamento', reservasEquipamentoRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/professores', professoresRouter);
 app.use('/coordenadores', coordenadoresRouter);
-app.use('/reservaSalas', reservaSalasRouter);
+app.use('/reservassala', reservaSalasRouter);
 app.use('/equipamentos', equipamentosRouter);
 app.use('/laboratoriosinformatica', laboratoriosInformaticaRouter);
 app.use('/incidentes', incidentesRouter);
@@ -59,7 +59,7 @@ app.use('/questoes', questoesRouter);
 app.use('/salas',salasRouter);
 app.use('/salasEspeciais', salasEspeciaisRouter);
 app.use('/softwares', softwaresRouter);
-app.use('/tipoEquipamentos', tipoEquipamentoRouter);
+app.use('/tiposequipamento', tiposEquipamentoRouter);
 app.use('/materiais', materiaisRouter);
 
 // catch 404 and forward to error handler

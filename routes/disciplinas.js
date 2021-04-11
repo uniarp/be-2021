@@ -1,52 +1,51 @@
 var express = require('express');
 var router = express.Router();
 
-// var db= require('../bd').client;
-//Cadastrar uma disciplina
-router.post('/cadastrar', function(req, res){
-    res.status(200).json({
-        id: 1,
-        nome : "Matemática Discreta",
-        periodo : "Noturno",
-        diaSemana : ['2', '3']
-    }); 
-});
-
-//excluir uma disciplina passando o seu id
-router.get('/:id/excluir', function(req,res){
-    var id = req.params.id
-    res.json(
-        "Disciplina "+ id + " foi excluida"
-    )
-});
-
-//listar todas as disciplinas
-router.get('/', function(req, res){
-    res.status(200).json(
-    {
-        1:[{
+/* GET /disciplinas */
+router.get('/', function(req, res) {
+    res.status(200).json([
+        {
             id: 1,
-        nome : "Matemática Discreta",
-        periodo : "Noturno",
-        diaSemana : [2, 3],
-        }],
-        2:[{
+            nome : "Matemática Discreta",
+            periodo : "Noturno",
+            diaSemana : [2, 3],
+        },
+        {
             id: 2,
-        nome : "Projeto Integrador I",
-        periodo : "Noturno",
-        diaSemana : [1, 4]
-        }]
-
-        
-    } )
+            nome : "Projeto Integrador I",
+            periodo : "Noturno",
+            diaSemana : [1, 4]
+        }
+    ]);
 });
 
-//Alterar uma disciplina
-router.get('/:id/alterar', function(req,res,next){
-    var id = req.params.id;
-    res.json( 
-        "Disciplina "+ id + " foi alterada"
-    )
+/* POST /disciplinas/cadastrar */
+router.post('/cadastrar', function(req, res) {
+    const data = {
+        nome : req.body.nomeDisciplina,
+        periodo : req.body.periodoDisciplina,
+        diaSemana : req.body.diaSemanaDisciplina
+    };
+    res.status(201).json(data);
+});
+
+/* POST /disciplinas/{id}/alterar */
+router.get('/:id_disciplina/alterar', function(req, res) {
+    const id = req.params.id_disciplina;
+    const data = {
+        nome : req.body.nomeDisciplina,
+        periodo : req.body.periodoDisciplina,
+        diaSemana : req.body.diaSemanaDisciplina
+    };
+    res.status(200).json(data);
+});
+
+/* GET /disciplinas/{id}/excluir */
+router.get('/:id_disciplina/excluir', function(req, res) {
+    const id = req.params.id_disciplina
+    res.status(200).json({
+        id : id
+    });
 });
 
 module.exports = router;

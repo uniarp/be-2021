@@ -1,45 +1,47 @@
 var express = require('express');
 var router = express.Router();
 
-//exibir todas as entregas
-router.get('/', function(req,res){
+/* GET /entregas */
+router.get('/', function(req, res){
     res.status(200).json([
         {
             id : 2,
             data : "21/12/2020",
             qtd : 9
-       },
-       {
+        },
+        {
             id : 3,
             data : "22/12/2020",
             qtd : 12
-       }
-    ])
+        }
+    ]);
 });
 
-//cadastrar uma entrega
-router.post('/cadastrar', function(req,res){
-    res.status(200).json({
-        id:1,
-        data:"20/12/2020",
-        qtd:5
-    })
+/* POST /entregas/cadastrar */
+router.post('/cadastrar', function(req, res){
+    const data = {
+        data : req.body.dataEntrega,
+        qtd : req.body.qtdEntrega
+    };
+    res.status(201).json(data);
 });
 
-// excuir entrega
-router.get('/:id/excluir', function(req,res){
-    var id = req.params.id;
+/* POST /entregas/{id}/alterar */
+router.get('/:id_entrega/excluir', function(req, res){
+    const id = req.params.id_entrega;
+    const data = {
+        data : req.body.dataEntrega,
+        qtd : req.body.qtdEntrega
+    }
+    res.status(200).json(data);
+});
+
+/* GET /entregas/{id}/excluir */
+router.get('/:id_entrega/alterar',function(req, res){
+    const id = req.params.id_entrega;
     res.json({
-        resultado:"Entrega "+id+" foi excluida"
-    })
-})
-
-// alterar uma entrega
-router.get('/:id/alterar',function(req,res){
-    var id = req.params.id;
-    res.json(
-        "Entrega "+id+" foi alterada"
-    )
-})
+        id : id
+    });
+});
 
 module.exports=router;
