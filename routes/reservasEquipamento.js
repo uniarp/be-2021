@@ -35,7 +35,7 @@ router.post('/cadastrar', function(req, res) {
     res.status(201).json(data);
 });
 
-/* POST /reservaEquipamentos/{id}/alterar */
+/* POST /reservasEquipamento/{id}/alterar */
 router.post('/:id_reservaequipamento/alterar', function(req, res) {
     const id = req.params.id_reservaequipamento
     const data = {
