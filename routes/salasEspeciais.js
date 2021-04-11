@@ -2,57 +2,52 @@ var express = require('express');
 var router = express.Router();
 
 /* GET /salasEspeciais/ */
-router.get('/', function(req, res, next) {
-    res.json({
-    mensagem : 'GET Salas Especiais',
-    id : 5,
-    numeroSala: 222,
-    nomeSala: 'Salão',
-    localizacao: ['B', '2º andar'],
-    capacidade: 44,
-    },
-    {
-    mensagem : 'Get Salas Especiais',
-    id : 7,
-    numeroSala: 123,
-    nomeSala: 'Salão nobre',
-    localizacao: ['C', '1º andar'],
-    capacidade: 33,
-    })
+router.get('/', function(req, res) {
+    res.status(200).json([
+        {
+            id : 5,
+            numeroSala: 222,
+            nomeSala: 'Salão',
+            localizacao: ['B', '2º andar'],
+            capacidade: 44,
+        },
+        {
+            id : 7,
+            numeroSala: 123,
+            nomeSala: 'Salão nobre',
+            localizacao: ['C', '1º andar'],
+            capacidade: 33,
+        }
+    ]);
 });
 
 /* POST /salasEspeciais/cadastrar */
-router.post('/cadastrar', function(req, res, next) {
-    const salaEspecial = req.params.salaEspecial
-    res.status(201).send({
-        mensagem : 'POST Cadastrar Sala Especial',
-        id : 1,
-        numeroSala : 331,
-        localizacao : ['A', '3º andar'],
-        capacidade : 40,
-    })
+router.post('/cadastrar', function(req, res) {
+    const data = {
+        numero : req.body.numeroSalaEspecial,
+        localizacao : req.body.localizacaoSalaEspecial,
+        capacidade : req.body.capacidadeSalaEspecial
+    };
+    res.status(201).json(data);
 })
 
 /* POST /salasEspeciais/{id}/alterar. */
-router.post('/:id_salaEspecial/alterar', function(req, res, next) {
-    const id = req.params.id_salaEspecial
-    const salaEspecial = req.params.salaEspecial
-    res.json({
-        mensagem : 'GET Alterar Sala Especial',
-        id : 1,
-        numeroSala: 321,
-        localizacao: ['B', '2º andar'],
-        capacidade: 35,
-    })
+router.post('/:id_salaespecial/alterar', function(req, res) {
+    const id = req.params.id_salaespecial;
+    const data = {
+        numero : req.body.numeroSalaEspecial,
+        localizacao : req.body.localizacaoSalaEspecial,
+        capacidade : req.body.capacidadeSalaEspecial
+    };
+    res.status(200).json(data);
 });
 
 /* GET /salasEspeciais/{id}/excluir. */
-router.get('/:id_salaEspecial/excluir', function(req, res, next) {
-    const id = req.params.id_salaEspecial
-    res.json({
-        mensagem : 'GET ID excluir Sala Especial',
+router.get('/:id_salaespecial/excluir', function(req, res) {
+    const id = req.params.id_salaespecial
+    res.status(200).json({
         id : id
-    })
+    });
 });
 
 module.exports = router;
