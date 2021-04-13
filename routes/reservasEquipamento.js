@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET /reservasEquipamento */
+/* GET /reservasEquipamento/ */
 router.get('/', function(req, res) {
     res.status(200).json([
         {
             id : "1",
             dataEntrega : "26/02/2021",
             dataDevolucao : "01/03/2021",
-            observacao : " Nada demais",
+            observacao : "Nada demais",
             status : "Entregue",
             periodo : "Noturno"
         },
