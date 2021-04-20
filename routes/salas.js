@@ -31,8 +31,8 @@ router.post('/cadastrar', function(req, res) {
     const data = {
         numero : req.body.numeroSala,
         localizacao : {
-            bloco : req.body.localizacaoSala.blocoLocalizacaoSala,
-            andar : req.body.localizacaoSala.andarLocalizacaoSala
+            bloco : req.body.localizacao.bloco,
+            andar : req.body.localizacao.andar
         },
         capacidade : req.body.capacidadeSala
     };
