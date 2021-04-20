@@ -7,16 +7,10 @@ router.get('/', function(req, res) {
         {
             id : 1,
             nome: "Impressora",
-            dataAquisicao: "01/03/2021",
-            marca: "Epson",
-            modelo:"FX-3190"
         },
         {
             id : 2,
-            nome: "Impressora",
-            dataAquisicao: "02/03/2021",
-            marca: "HP",
-            modelo: "PRO-3678"
+            nome: "Projetor",
         }
     ]);
 });
@@ -24,10 +18,7 @@ router.get('/', function(req, res) {
 /* POST /tiposEquipamento/cadastrar */
 router.post('/cadastrar', function(req, res) {
     const data = {
-        nome : req.body.nomeTipoEquipamento,
-        dataAquisicao : req.body.dataAquisicaoTipoEquipamento,
-        marca : req.body.marcaTipoEquipamento,
-        modelo : req.body.modeloTipoEquipamento
+        nome : req.body.nome,
     };
     res.status(201).json(data);
 });
@@ -36,10 +27,7 @@ router.post('/cadastrar', function(req, res) {
 router.post('/:id_tipoequipamento/alterar', function(req, res, next) {
     const id = req.params.id_tipoequipamento
     const data = {
-        nome : req.body.nomeTipoEquipamento,
-        dataAquisicao : req.body.dataAquisicaoTipoEquipamento,
-        marca : req.body.marcaTipoEquipamento,
-        modelo : req.body.modeloTipoEquipamento
+        nome : req.body.nome
     };
     res.status(200).json(data);
 });
