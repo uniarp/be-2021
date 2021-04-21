@@ -8,7 +8,6 @@ var cors = require('cors')
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var materiaisRouter = require('./routes/materiais');
 var cursosRouter = require('./routes/cursos');
 var disciplinasRouter = require('./routes/disciplinas');
@@ -29,9 +28,7 @@ var softwaresRouter = require('./routes/softwares');
 var tiposEquipamentoRouter = require('./routes/tiposEquipamento');
 var materiaisRouter = require('./routes/materiais');
 
-//rota para testar rota via banco
-var testdbRouter=require('./routes/testdb');
-//end
+ 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,16 +37,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cors());
-
-//rota para testar rota via banco
-app.use('/testdb',testdbRouter)
-//end
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/materiais', materiaisRouter);
 app.use('/cursos', cursosRouter);
 app.use('/disciplinas', disciplinasRouter);
