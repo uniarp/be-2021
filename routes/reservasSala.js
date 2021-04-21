@@ -24,10 +24,10 @@ router.get('/', function(req, res) {
 /* POST /reservasSala/cadastrar */
 router.post('/cadastrar', function(req, res) {
     const data = {
-        data : req.body.dataReservaSala,
-        qtdAlunos : req.body.qtdAlunosReservaSala,
-        status : req.body.statusReservaSala,
-        periodo : req.body.periodoReservaSala
+        data : req.body.data,
+        qtdAlunos : req.body.qtdAlunos,
+        status : req.body.status,
+        periodo : req.body.periodo
     };
     res.status(201).json(data);
 });
@@ -36,10 +36,10 @@ router.post('/cadastrar', function(req, res) {
 router.post('/:id_reservasala/alterar', function(req, res) {
     const id = req.params.id_reservasala;
     const data = {
-        data : req.body.dataReservaSala,
-        qtdAlunos : req.body.qtdAlunosReservaSala,
-        status : req.body.statusReservaSala,
-        periodo : req.body.periodoReservaSala
+        data : req.body.data,
+        qtdAlunos : req.body.qtdAlunos,
+        status : req.body.status,
+        periodo : req.body.periodo
     };
     res.status(200).json(data);
 });
