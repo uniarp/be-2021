@@ -1,11 +1,13 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+
+
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var materiaisRouter = require('./routes/materiais');
 var cursosRouter = require('./routes/cursos');
 var disciplinasRouter = require('./routes/disciplinas');
@@ -26,9 +28,7 @@ var softwaresRouter = require('./routes/softwares');
 var tiposEquipamentoRouter = require('./routes/tiposEquipamento');
 var materiaisRouter = require('./routes/materiais');
 
-var app = express();
-
-app.use(cors())
+ 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,12 +36,12 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/materiais', materiaisRouter);
 app.use('/cursos', cursosRouter);
 app.use('/disciplinas', disciplinasRouter);
