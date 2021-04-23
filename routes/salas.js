@@ -29,12 +29,12 @@ router.get('/', function(req, res) {
 router.post('/cadastrar', function(req, res) {
     console.log(req);
     const data = {
-        numero : req.body.numeroSala,
+        numero : req.body.numero,
         localizacao : {
             bloco : req.body.localizacao.bloco,
             andar : req.body.localizacao.andar
         },
-        capacidade : req.body.capacidadeSala
+        capacidade : req.body.capacidade
     };
     res.status(201).send(data);
 })
@@ -43,10 +43,10 @@ router.post('/cadastrar', function(req, res) {
 router.post('/:id_sala/alterar', function(req, res, next) {
     const id = req.params.id_sala;
     const data = {
-        numero : req.body.numeroSala,
+        numero : req.body.numero,
         localizacao : {
-            bloco : req.body.localizacaoSala.blocoLocalizacaoSala,
-            andar : req.body.localizacaoSala.andarLocalizacaoSala
+            bloco : req.body.localizacao.bloco,
+            andar : req.body.localizacao.andar
         },
         capacidade : req.body.capacidadeSala
     };
