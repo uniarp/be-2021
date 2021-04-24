@@ -75,8 +75,8 @@ router.post('/:id/alterar', async(req, res)=> {
 router.get('/:id/excluir', async(req, res)=> {
     try{
         const id =req.params.id;
-        const query =`DELETE FROM coordenador WHERE id=$1`;
-        await pool.query(query,[id])
+        const query =`DELETE FROM coordenador WHERE id='${id}'`;
+        await pool.query(query)
         res.status(200).send({
             mensagem:"Coordenador Excluído!"
         });
