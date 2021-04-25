@@ -1,59 +1,90 @@
+const { request } = require('express');
 var express = require('express');
 var router = express.Router();
+const pool = require('../bd')
 
-/* GET /coordenadores */
-router.get('/', function(req, res) {
-    res.status(200).json([
-        {
-            id : 1,
-            login : "coordenador",
-            senha : "qwerty",
-            nivel : "1",
-            nomeCompleto : "Xavier Silva",
-            email : "email@email.com"
-        },
-        {
-            id : 2,
-            login : "ramon",
-            senha : "12345",
-            nivel : "2",
-            nomeCompleto : "Inherits",
-            email : "r@r.com"
-        }
-    ]);
+/* listar todos os coordenadores */
+router.get('/', async(req, res)=> {
+    try {
+        const query = await pool.query('SELECT * FROM coordenador')
+        res.status(200).json(query.rows)
+    }catch(error) {
+        res.status(400).send({
+            mensagem:error.message
+        })
+    }
 });
 
 /* POST /coordenadores/cadastrar */
-router.post('/cadastrar', function(req, res) {
-    const data = {
-        login : req.body.loginCoordenador,
-        senha : req.body.senhaCoordenador,
-        nivel : req.body.nivelCoordenador,
-        nomeCompleto : req.body.nomeCompletoCoordenador,
-        email : req.body.emailCoordenador
-    };
-    res.status(201).json(data);
+router.post('/cadastrar', async(req, res)=> {
+    try {
+        const data  = {
+            login : req.body.login,
+            senha : req.body.senha,
+            nivel : req.body.nivel,
+            nomeCompleto : req.body.nomeCompleto,
+            email : req.body.email
+        };
+        console.log(data)
+        const query = `INSERT INTO coordenador (login,senha,nivel,nomeCompleto,email) 
+            VALUES ('${data.login}',
+                '${data.senha}',
+                '${data.nivel}',
+                '${data.nomeCompleto}',
+                '${data.email}')`
+        await pool.query(query) 
+        res.status(200).send({
+            mensagem:"Cadastro bem sucedido!"
+        })
+    }catch(error) {
+        res.status(400).send({
+            mensagem:error.message
+        })
+    }
 });
 
 /* POST /coordenadores/{id}/alterar */
-router.post('/:id_coordenador/alterar', function(req, res) {
-    const id = req.params.id_coordenador;
-    const data = {
-        login : req.body.loginCoordenador,
-        senha : req.body.senhaCoordenador,
-        nivel : req.body.nivelCoordenador,
-        nomeCompleto : req.body.nomeCompletoCoordenador,
-        email : req.body.emailCoordenador
-    };
-    res.status(200).json(data);
+router.post('/:id/alterar', async(req, res)=> {
+    try {
+        const data = {
+            id : req.params.id,
+            login : req.body.login,
+            senha : req.body.senha,
+            nivel : req.body.nivel,
+            nomeCompleto : req.body.nomeCompleto,
+            email : req.body.email
+        }
+        console.log(data.id)
+        const query = `UPDATE coordenador SET login='${data.login}',
+                         senha='${data.senha}',
+                         nivel='${data.nivel}',
+                         nomeCompleto='${data.nomeCompleto}',
+                         email='${data.email}' WHERE id='${data.id}'`;
+        await pool.query(query)
+        res.status(200).send({
+            message:'Coordenador Alterado!'
+        })
+    }catch(error){
+        res.status(304).send({
+            mensagem:error.message
+        })
+    }
 });
 
 /* GET /coordenadores/{id}/excluir */
-router.get('/:id_coordenador/excluir', function(req, res) {
-    const id = req.params.id_coordenador;
-    res.status(200).json({
-        id : id
-    });
-});
+router.get('/:id/excluir', async(req, res)=> {
+    try{
+        const id =req.params.id;
+        const query =`DELETE FROM coordenador WHERE id='${id}'`;
+        await pool.query(query)
+        res.status(200).send({
+            mensagem:"Coordenador Excluído!"
+        });
+    }catch(error){
+        res.status(304).send({
+            mensagem:error.message
+        })
+    }
+})
 
 module.exports = router;
