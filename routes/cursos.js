@@ -16,11 +16,11 @@ router.get('/', async(req, res) => {
 
 /* POST /cursos/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
-    const data = {
-        nome : req.body.nome
-    };
-    console.log(data)
     try {
+        const data = {
+            nome : req.body.nome
+        };
+        console.log(data)
         const query = `INSERT INTO curso (nome) 
             VALUES ('${data.nome}')`
         await pool.query(query) 

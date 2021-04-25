@@ -17,15 +17,15 @@ router.get('/', async(req, res)=> {
 
 /* POST /coordenadores/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
-    const data  = {
-        login : req.body.login,
-        senha : req.body.senha,
-        nivel : req.body.nivel,
-        nomeCompleto : req.body.nomeCompleto,
-        email : req.body.email
-    };
-    console.log(data)
     try {
+        const data  = {
+            login : req.body.login,
+            senha : req.body.senha,
+            nivel : req.body.nivel,
+            nomeCompleto : req.body.nomeCompleto,
+            email : req.body.email
+        };
+        console.log(data)
         const query = `INSERT INTO coordenador (login,senha,nivel,nomeCompleto,email) 
             VALUES ('${data.login}',
                 '${data.senha}',
@@ -36,9 +36,9 @@ router.post('/cadastrar', async(req, res)=> {
         res.status(200).send({
             mensagem:"Cadastro bem sucedido!"
         })
-    }catch(err) {
+    }catch(error) {
         res.status(400).send({
-            mensagem:err.message
+            mensagem:error.message
         })
     }
 });
@@ -64,9 +64,9 @@ router.post('/:id/alterar', async(req, res)=> {
         res.status(200).send({
             message:'Coordenador Alterado!'
         })
-    }catch(err){
+    }catch(error){
         res.status(304).send({
-            mensagem:err.message
+            mensagem:error.message
         })
     }
 });
