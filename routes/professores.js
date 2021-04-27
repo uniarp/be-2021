@@ -1,26 +1,14 @@
 var express = require('express');
 var router = express.Router();
-
+const pool = require('../bd')
 /* GET /professores */
-router.get('/', function(req, res) {
-    res.status(200).json([
-        {
-            id : 1,
-            login : "professor",
-            senha : "qwerty",
-            nivel : "1",
-            nomeCompleto : "Xavier Silva",
-            email : "email@email.com"   
-        },
-        {
-            id : 2,
-            login : "ramon",
-            senha : "12345",
-            nivel : "2",
-            nomeCompleto : "Inherits",
-            email : "r@r.com"
-        }
-    ]);
+router.get('/', async(req, res)=> {
+ try{
+     const retorno= await pool.query('select * from professor') 
+     res.status(200).json(retorno.rows)
+ }catch(erro){
+     res.status(400).send({mensagem: erro.message}) 
+ }
 });
 
 /* POST /professores/cadastrar */
