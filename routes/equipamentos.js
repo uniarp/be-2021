@@ -27,7 +27,7 @@ router.post('/cadastrar', async(req, res)=> {
             id_equipamento : req.body.id_tipoequipamento,
             id_sala : req.body.id_sala
         };
-        const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento)
+        const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento, id_sala)
                         VALUES ('${data.dataAquisicao}','${data.marca}','${data.modelo}',
                         '${data.id_tipoequipamento}','${data.id_sala}')`
         await pool.query(query)
