@@ -6,7 +6,8 @@ const pool = require('../bd')
 router.get('/', async(req, res)=> {
     try{
         const query = (`SELECT * FROM equipamento equip INNER JOIN tipoequipamento tp
-                        ON equip.id_tipoequipamento=tp.id`)
+                        ON equip.id_tipoequipamento=tp.id INNE JOIN sala s
+                        ON equip.id_sala=s.id`)
         await pool.query(query)
         res.status(200).json(query.rows)
     }catch (error) {
@@ -23,11 +24,12 @@ router.post('/cadastrar', async(req, res)=> {
             dataAquisicao : req.body.dataAquisicao,
             marca : req.body.marca,
             modelo : req.body.modelo,
-            id_equipamento : req.body.id_tipoequipamento
+            id_equipamento : req.body.id_tipoequipamento,
+            id_sala : req.body.id_sala
         };
         const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento)
                         VALUES ('${data.dataAquisicao}','${data.marca}','${data.modelo}',
-                        '${data.id_tipoequipamento}')`
+                        '${data.id_tipoequipamento}','${data.id_sala}')`
         await pool.query(query)
         console.log(data)
         res.status(200).send({
@@ -48,11 +50,12 @@ router.post('/:id/alterar', async(req, res)=> {
             dataAquisicao : req.body.dataAquisicaoEquipamento,
             marca : req.body.marcaEquipamento,
             modelo : req.body.modeloEquipamento,
-            id_tipoequipamento : req.body.id_tipoequipamento
+            id_tipoequipamento : req.body.id_tipoequipamento,
+            id_sala : req.body.id_sala
     };
     const query = `UPDATE equipamento SET dataaquisicao='${data.dataAquisicao}',
                         marca='${data.marca}',modelo='${data.modelo}',
-                        id_tipoequipamento='${data.id_tipoequipamento}' WHERE id='${data.id}'`;
+                        id_tipoequipamento='${data.id_tipoequipamento}','${data.id_sala}' WHERE id='${data.id}'`;
         await pool.query(query)
         res.status(200).send({
             message:'Disciplina Alterada!'

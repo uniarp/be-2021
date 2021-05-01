@@ -5,12 +5,6 @@ var router = express.Router();
 /* GET /disciplinas */
 router.get('/', async(req, res)=> {
     try{
-        const data = {
-            nome : req.body.nome,
-            periodo: req.body.periodo,
-            diaSemana : req.body.diasemana,
-            id_professor : req.body.id_professor
-        }
         const query = await pool.query(`SELECT * FROM disciplina disc INNER JOIN professor p
                                         ON disc.id_professor=p.id`)
         res.status(200).json(query.rows)
