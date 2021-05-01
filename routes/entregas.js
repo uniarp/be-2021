@@ -63,7 +63,7 @@ router.get('/:id/excluir', async(req, res)=>{
 router.post('/:id/alterar',async(req, res)=>{
     try {
         const data = { 
-                id : req.params.id_entrega,
+                id : req.params.id,
                 data: req.body.data,
                 qtd: req.body.qtd,
                 id_professor : req.body.id_professor,
