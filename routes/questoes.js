@@ -17,11 +17,10 @@ router.get('/', async(req, res, next)=> {
 
 /* POST /questoes/cadastrar */
 router.post('/cadastrar', async(req, res, next)=> {
-    const data = {
-        pergunta : req.body.perguntaQuestao,
-        resposta : req.body.respostaQuestao
-    };
     try {
+        const pergunta = req.body.perguntaQuestao
+        const resposta = req.body.respostaQuestao
+    
         await pool.query(
             "INSERT INTO questao  (perguntaQuestao, respostaQuestao) VALUES($1,$2) RETURNING *",[pergunta,resposta]
         );
@@ -36,13 +35,22 @@ router.post('/cadastrar', async(req, res, next)=> {
 });
 
 /* POST /questoes/{id}/alterar. */
-router.post('/:id_questao/alterar', function(req, res, next) {
-    const id = req.params.id_questao;
-    const data = {
-        pergunta : req.body.perguntaQuestao,
-        resposta : req.body.respostaQuestao
-    };
-    res.status(200).json(data);
+router.post('/:id_questao/alterar', async(req, res, next)=> {
+    try {
+        const id = req.params.id_questao
+        const pergunta = req.body.perguntaQuestao
+        const resposta = req.body.respostaQuestao
+
+        await pool.query("UPDATE questao SET perguntaQuestao=$1, respostaQuestao=$2 WHERE id=$3",[pergunta,resposta,id]);
+        res.status(200).send({
+            message:'Questão alterada com sucesso'
+        })  
+        
+    } catch (error) {
+        res.status(400).send({
+            mensagem:error.message
+        })
+    }
 });
 
 /* GET /questoes/{id}/excluir. */

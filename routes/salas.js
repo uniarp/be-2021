@@ -16,16 +16,14 @@ router.get('/', async (req, res)=> {
 
 /* POST /salas/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
-    console.log(req);
-    const data = {
-        numero : req.body.numero,
-        localizacao : {
+    try{
+        const numero = req.body.numero
+        const localizacao = {
             bloco : req.body.localizacao.bloco,
             andar : req.body.localizacao.andar
-        },
-        capacidade : req.body.capacidade
-    };
-    try{
+            }
+        const capacidade = req.body.capacidadeSala
+
         await pool.query(`INSERT INTO sala (numerosala, localizacao, capacidade)
          VALUES($1,$2,$3) RETURNING 
          *`,[numero, localizacao,capacidade]
@@ -42,16 +40,15 @@ router.post('/cadastrar', async(req, res)=> {
 
 /* POST /salas/{id}/alterar. */
 router.post('/:id_sala/alterar', async(req, res, next)=>{
-    const id = req.params.id_sala;
-    const data = {
-        numero : req.body.numero,
-        localizacao : {
+    try {
+        const id = req.params.id_sala
+        const numero = req.body.numero
+        const localizacao = {
             bloco : req.body.localizacao.bloco,
             andar : req.body.localizacao.andar
-        },
-        capacidade : req.body.capacidadeSala
-    };
-    try {
+            }
+        const capacidade = req.body.capacidadeSala
+    
         await pool.query("UPDATE sala SET numerosala=$1, localizacao=$2, capacidade=$3 WHERE id=$4",[numero,localizacao,capacidade,id]);
         res.status(200).send({
             message:'Sala alterada com sucesso'
