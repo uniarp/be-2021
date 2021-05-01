@@ -63,7 +63,7 @@ router.post('/:id/alterar', async(req, res)=> {
 });
 
 /* GET /equipamentos/{id}/excluir. */
-router.get('/:id_equipamento/excluir', async(req, res)=> {
+router.get('/:id/excluir', async(req, res)=> {
     try {
         const id =req.params.id;
         const query =`DELETE FROM equipamento WHERE id='${id}'`;
