@@ -72,7 +72,7 @@ router.post('/:id/alterar',async(req, res)=>{
         };
         const query = `UPDATE entrega SET data='${data.data}',
                         qtd='${data.qtd}',id_professor='${data.id_professor}',
-                        id_material='${data.id_material}','${data.id_usuario}' WHERE id='${data.id}'`;
+                        id_material='${data.id_material}',id_usuario='${data.id_usuario}' WHERE id='${data.id}'`;
         await pool.query(query)
         res.status(200).send({
             message:'Entrega Alterada!'
