@@ -24,7 +24,7 @@ router.post('/cadastrar', async(req, res)=> {
             dataAquisicao : req.body.dataAquisicao,
             marca : req.body.marca,
             modelo : req.body.modelo,
-            id_equipamento : req.body.id_tipoequipamento,
+            id_tipoequipamento : req.body.id_tipoequipamento,
             id_sala : req.body.id_sala
         };
         const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento, id_sala)
