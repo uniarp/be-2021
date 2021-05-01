@@ -46,7 +46,7 @@ router.post('/cadastrar', async(req, res)=> {
 });
 
 /* POST /disciplinas/{id}/alterar */
-router.get('/:id/alterar', async(req, res)=> {
+router.post('/:id/alterar', async(req, res)=> {
     try {
         const data = {
             id : req.params.id,
