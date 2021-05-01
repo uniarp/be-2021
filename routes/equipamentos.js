@@ -55,7 +55,7 @@ router.post('/:id/alterar', async(req, res)=> {
     };
     const query = `UPDATE equipamento SET dataaquisicao='${data.dataAquisicao}',
                         marca='${data.marca}',modelo='${data.modelo}',
-                        id_tipoequipamento='${data.id_tipoequipamento}','${data.id_sala}' WHERE id='${data.id}'`;
+                        id_tipoequipamento='${data.id_tipoequipamento}',id_sala='${data.id_sala}' WHERE id='${data.id}'`;
         await pool.query(query)
         res.status(200).send({
             message:'Disciplina Alterada!'
