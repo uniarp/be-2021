@@ -42,7 +42,7 @@ router.post('/cadastrar', async(req, res)=> {
 router.post('/:id/alterar', async(req, res)=> {
     try {
         const data = {
-            id = req.params.id,
+            id : req.params.id,
             dataAquisicao : req.body.dataAquisicaoEquipamento,
             marca : req.body.marcaEquipamento,
             modelo : req.body.modeloEquipamento,
