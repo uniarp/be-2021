@@ -7,6 +7,8 @@ router.get('/', async(req, res)=> {
     try{
         const query = (`SELECT * FROM equipamento equip INNER JOIN tipoequipamento tp
                         ON equip.id_tipoequipamento=tp.id`)
+        await pool.query(query)
+        res.status(200).json(query.rows)
     }catch (error) {
         res.status(400).send({
             mensagem : error.message
