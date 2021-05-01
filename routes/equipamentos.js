@@ -5,10 +5,9 @@ const pool = require('../bd')
 /* GET /equipamentos/ */
 router.get('/', async(req, res)=> {
     try{
-        const query = (`SELECT * FROM equipamento equip INNER JOIN tipoequipamento tp
-                        ON equip.id_tipoequipamento=tp.id INNE JOIN sala s
+        const query = await pool.query(`SELECT * FROM equipamento equip INNER JOIN tipoequipamento tp
+                        ON equip.id_tipoequipamento=tp.id INNER JOIN sala s
                         ON equip.id_sala=s.id`)
-        await pool.query(query)
         res.status(200).json(query.rows)
     }catch (error) {
         res.status(400).send({
@@ -47,15 +46,16 @@ router.post('/:id/alterar', async(req, res)=> {
     try {
         const data = {
             id : req.params.id,
-            dataAquisicao : req.body.dataAquisicaoEquipamento,
-            marca : req.body.marcaEquipamento,
-            modelo : req.body.modeloEquipamento,
+            dataAquisicao : req.body.dataAquisicao,
+            marca : req.body.marca,
+            modelo : req.body.modelo,
             id_tipoequipamento : req.body.id_tipoequipamento,
             id_sala : req.body.id_sala
     };
     const query = `UPDATE equipamento SET dataaquisicao='${data.dataAquisicao}',
                         marca='${data.marca}',modelo='${data.modelo}',
-                        id_tipoequipamento='${data.id_tipoequipamento}',id_sala='${data.id_sala}' WHERE id='${data.id}'`;
+                        id_tipoequipamento='${data.id_tipoequipamento}',id_sala='${data.id_sala}' 
+                        WHERE id='${data.id}'`;
         await pool.query(query)
         res.status(200).send({
             message:'Disciplina Alterada!'
