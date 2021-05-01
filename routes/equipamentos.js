@@ -15,7 +15,7 @@ router.get('/', async(req, res)=> {
 });
 
 /* POST /equipamentos/cadastrar */
-router.post('/cadastrar', function(req, res) {
+router.post('/cadastrar', async(req, res)=> {
     try {
         const data = {
             dataAquisicao : req.body.dataAquisicao,
