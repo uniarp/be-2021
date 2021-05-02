@@ -22,7 +22,7 @@ router.post('/cadastrar', async(req, res, next)=> {
         const resposta = req.body.respostaQuestao
     
         await pool.query(
-            "INSERT INTO questao  (perguntaQuestao, respostaQuestao) VALUES($1,$2) RETURNING *",[pergunta,resposta]
+            "INSERT INTO questao  (pergunta, resposta) VALUES($1,$2) RETURNING *",[pergunta,resposta]
         );
         res.status(400).send({
             messagem:"Questão cadastrada com sucesso"
@@ -41,7 +41,7 @@ router.post('/:id_questao/alterar', async(req, res, next)=> {
         const pergunta = req.body.perguntaQuestao
         const resposta = req.body.respostaQuestao
 
-        await pool.query("UPDATE questao SET perguntaQuestao=$1, respostaQuestao=$2 WHERE id=$3",[pergunta,resposta,id]);
+        await pool.query("UPDATE questao SET pergunta=$1, resposta=$2 WHERE id=$3",[pergunta,resposta,id]);
         res.status(200).send({
             message:'Questão alterada com sucesso'
         })  
