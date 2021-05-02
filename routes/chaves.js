@@ -13,20 +13,20 @@ router.get('/', function(req, res) {
     ]);
 });
 
-/* POST /entregasChave/cadastrar */
+/* POST /chaves/cadastrar */
 router.post('/cadastrar', function(req, res) {
     const data = {};
     res.status(201).send(data);
 })
 
-/* POST /entregasChave/{id}/alterar. */
+/* POST /chaves/{id}/alterar. */
 router.post('/:id_chave/alterar', function(req, res, next) {
     const id = req.params.id_chave;
     const data = {};
     res.status(200).json(data);
 });
 
-/* GET /entregasChave/{id}/excluir. */
+/* GET /chaves/{id}/excluir. */
 router.get('/:id_chave/excluir', function(req, res, next) {
     const id = req.params.id_chave;
     res.status(200).json({
