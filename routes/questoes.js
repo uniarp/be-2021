@@ -18,8 +18,8 @@ router.get('/', async(req, res, next)=> {
 /* POST /questoes/cadastrar */
 router.post('/cadastrar', async(req, res, next)=> {
     try {
-        const pergunta = req.body.perguntaQuestao
-        const resposta = req.body.respostaQuestao
+        const pergunta = req.body.pergunta
+        const resposta = req.body.resposta
     
         await pool.query(
             "INSERT INTO questao  (pergunta, resposta) VALUES($1,$2) RETURNING *",[pergunta,resposta]
@@ -38,8 +38,8 @@ router.post('/cadastrar', async(req, res, next)=> {
 router.post('/:id_questao/alterar', async(req, res, next)=> {
     try {
         const id = req.params.id_questao
-        const pergunta = req.body.perguntaQuestao
-        const resposta = req.body.respostaQuestao
+        const pergunta = req.body.pergunta
+        const resposta = req.body.resposta
 
         await pool.query("UPDATE questao SET pergunta=$1, resposta=$2 WHERE id=$3",[pergunta,resposta,id]);
         res.status(200).send({
