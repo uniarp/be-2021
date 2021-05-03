@@ -22,7 +22,7 @@ router.post('/cadastrar', async(req, res)=> {
             bloco : req.body.localizacao.bloco,
             andar : req.body.localizacao.andar
             }
-        const capacidade = req.body.capacidadeSala
+        const capacidade = req.body.capacidade
 
         await pool.query(`INSERT INTO sala (numerosala, localizacao, capacidade)
          VALUES($1,$2,$3) RETURNING 
@@ -47,7 +47,7 @@ router.post('/:id_sala/alterar', async(req, res, next)=>{
             bloco : req.body.localizacao.bloco,
             andar : req.body.localizacao.andar
             }
-        const capacidade = req.body.capacidadeSala
+        const capacidade = req.body.capacidade
     
         await pool.query("UPDATE sala SET numerosala=$1, localizacao=$2, capacidade=$3 WHERE id=$4",[numero,localizacao,capacidade,id]);
         res.status(200).send({
