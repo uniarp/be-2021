@@ -21,7 +21,7 @@ router.post('/cadastrar', async(req, res)=> {
         nomeCompleto : req.body.nomeCompleto,
         email : req.body.email
         };
-        await pool.query("insert into professor(login,senha,nivel,nomeCompleto,email) values ($1,$2,$3,$4,$5)RETURNING *",[login,senha,nivel,nomeCompleto,email]
+        await pool.query("insert into professor(login,senha,nivel,nomeCompleto,email) values ($1,$2,$3,$4,$5)RETURNING *",[data.login,data.senha,data.nivel,data.nomeCompleto,data.email]
         );
         res.status(200).send({
             mensagem: "Professor cadastrado com sucesso"

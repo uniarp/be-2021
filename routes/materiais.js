@@ -42,7 +42,7 @@ router.post('/:id/alterar', async (req, res)=> {
         marca :  req.body.marca
     }
     try{
-        await pool.query("UPDATE material SET nome=$1, qtd=$2,descricao=$3,marca=$4 WHERE id=$6",[data.nome,data.qtd,data.descricao,data.marca,id]);
+        await pool.query("UPDATE material SET nome=$1, qtd=$2,descricao=$3,marca=$4 WHERE id=$5",[data.nome,data.qtd,data.descricao,data.marca,id]);
         res.status(200).send({
             message:'Material alterado com sucesso'
         })

@@ -17,7 +17,7 @@ router.get('/', async (req, res)=> {
 router.post('/cadastrar', async (req, res)=> {
     try{
     const data = {
-        numero : req.body.numero,
+         /*numero : req.body.numero,*//*não possui numero, apenas numeroSala*/
         numeroSala : req.body.numeroSala,
         localizacao : {
             bloco : req.body.localizacao.blocoLocalizacao,
@@ -44,7 +44,7 @@ router.post('/cadastrar', async (req, res)=> {
 router.post('/:id/alterar', async (req, res)=> {
     const id = req.params.id
     const data = {
-        numero : req.body.numero,
+        /*numero : req.body.numero,*/      /*não possui numero, apenas numeroSala*/
         numeroSala : req.body.numeroSala,
         localizacao : {
             bloco : req.body.localizacao.blocoLocalizacao,
