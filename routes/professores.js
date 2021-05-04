@@ -1,59 +1,74 @@
 var express = require('express');
 var router = express.Router();
+const pool = require('../bd')
 
 /* GET /professores */
-router.get('/', function(req, res) {
-    res.status(200).json([
-        {
-            id : 1,
-            login : "professor",
-            senha : "qwerty",
-            nivel : "1",
-            nomeCompleto : "Xavier Silva",
-            email : "email@email.com"   
-        },
-        {
-            id : 2,
-            login : "ramon",
-            senha : "12345",
-            nivel : "2",
-            nomeCompleto : "Inherits",
-            email : "r@r.com"
-        }
-    ]);
+router.get('/', async(req, res)=> {
+    try {
+        const retorno = await pool.query('select * from professor');
+        res.status(200).json(retorno.rows);
+    } catch(erro) {
+        res.status(400).send({mensagem: erro.message});
+    }
 });
 
 /* POST /professores/cadastrar */
-router.post('/cadastrar', function(req, res) {
-    const data = {
-        login : req.body.loginProfessor,
-        senha : req.body.senhaProfessor,
-        nivel : req.body.nivelProfessor,
-        nomeCompleto : req.body.nomeCompletoProfessor,
-        email : req.body.emailProfessor
-    };
-    res.status(201).json(data);
+router.post('/cadastrar', async(req, res)=> {
+    try {
+        const data = {
+            login : req.body.login,
+            senha : req.body.senha,
+            nivel : req.body.nivel,
+            nomeCompleto : req.body.nomeCompleto,
+            email : req.body.email
+        };
+        await pool.query("insert into professor(login,senha,nivel,nomeCompleto,email) values ($1,$2,$3,$4,$5)RETURNING *",[data.login,data.senha,data.nivel,data.nomeCompleto,data.email]);
+        res.status(200).send({
+            mensagem: "Professor cadastrado com sucesso"
+        });
+    } catch(err) {
+        res.status(400).send({
+            mensagem:err.message
+        });
+    }
 });
 
 /* POST /professores/{id}/alterar. */
-router.post('/:id_professor/alterar', function(req, res, next) {
-    const id = req.params.id_professor
+router.post('/:id/alterar', async(req, res)=> {
+    const id = req.params.id
     const data = {
-        login : req.body.loginProfessor,
-        senha : req.body.senhaProfessor,
-        nivel : req.body.nivelProfessor,
-        nomeCompleto : req.body.nomeCompletoProfessor,
-        email : req.body.emailProfessor
+        login : req.body.login,
+        senha : req.body.senha,
+        nivel : req.body.nivel,
+        nomeCompleto : req.body.nomeCompleto,
+        email : req.body.email
     }
-    res.status(200).json(data);
+    try {
+        await pool.query("UPDATE professor SET login=$1, senha=$2,nivel=$3,nomecompleto=$4,email=$5 WHERE id=$6",[data.login,data.senha,data.nivel,data.nomeCompleto,data.email,id]);
+        res.status(200).send({
+            message:'Professor alterado com sucesso'
+        });
+    } catch(err) {
+        res.status(304).send({
+            mensagem:err.message
+        });
+    }
 });
 
+
 /* GET /professores/{id}/excluir. */
-router.get('/:id_professor/excluir', function(req, res, next) {
-    const id = req.params.id_professor;
-    res.status(200).json({
-        id : id
-    });
+router.get('/:id/excluir', async(req, res)=>{
+    try {
+        const id = req.params.id
+        await pool.query('delete from professor where id=$1',[id]);
+        res.status(200).send({
+            mensagem:"Professor excluido com sucesso"
+        });
+    } catch(error) {
+        res.status(304).send({
+            mensagem:error.message
+        });
+    }
 });
 
 module.exports = router;
