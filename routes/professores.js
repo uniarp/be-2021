@@ -3,17 +3,17 @@ var router = express.Router();
 const pool = require('../bd')
 /* GET /professores */
 router.get('/', async(req, res)=> {
- try{
-     await pool.query('select * from professor') 
-     res.status(200).json(retorno.rows)
- }catch(erro){
-     res.status(400).send({mensagem: erro.message}) 
- }
+    try {
+        const retorno = await pool.query('select * from professor');
+        res.status(200).json(retorno.rows)
+    } catch(erro) {
+        res.status(400).send({mensagem: erro.message});
+    }
 });
 
 /* POST /professores/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
-    try{
+    try {
         const data = {
         login : req.body.login,
         senha : req.body.senha,
@@ -35,7 +35,7 @@ router.post('/cadastrar', async(req, res)=> {
 });
 
 /* POST /professores/{id}/alterar. */
-router.post('/:id_professor/alterar', async(req, res)=> {
+router.post('/:id/alterar', async(req, res)=> {
     const id = req.params.id
     const data = {
         login : req.body.login,
