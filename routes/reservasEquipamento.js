@@ -26,14 +26,13 @@ router.post('/cadastrar', async (req, res)=> {
         periodo : req.body.periodo,
         idprofessor:req.body.idprofessor,
         idequipamento:req.body.idequipamento,
-    };
+    }
+    console.log('me',data)
     try{
-        await pool.query(`insert into reservaequipamento (dataentrega,datadevolucao,observacao,status,
-            periodo,id_professor,id_equipamento) values($1,$2,$3,$4,$5,$6,$7
-            )`,RETURNIN* [data.dataEntrega,data.dataDevolucao,data.observacao,data.status,
-                data.periodo,data.idprofessor,data.idequipamento])
-            
-        res.status(200)
+        await pool.query("INSERT INTO reservaequipamento (dataentrega,datadevolucao,observacao,status,periodo,id_professor,id_equipamento) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",[data.dataEntrega,data.dataDevolucao,data.observacao,data.status,data.periodo,data.idprofessor,data.idequipamento]);
+        res.status(200).send({
+            mensagem:"Reserva de equipamento cadastrada com sucesso"
+        })
     }catch(err){
         res.status(400).send({
             mensagem:err.message
