@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET /chaves/ */
 router.get('/', async(req, res)=> {
     try{
-        const query = await pool.query("SELECT * FROM chave")
+        const query = await pool.query("SELECT ch.*,s.numerosala,s.localizacao FROM chave ch inner join sala s on s.id=ch.id_sala")
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
