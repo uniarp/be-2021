@@ -4,9 +4,10 @@ const pool =require('../bd')
 /* GET /vistorias */
 router.get('/', async(req, res)=> {
     try{
-        const query = await pool.query(`select * from vistoria v inner join 
-        sala s on v.id_sala=s.id inner join equipamento e on v.id_equipamento=e.id 
-        inner join tipoequipamento te on e.id_tipoequipamento = te.id`)
+        const query = await pool.query(`select v.*,s.numerosala,s.localizacao,e.marca as marca_equipamento,
+            e.modelo as modelo_equipamento,te.nome as tipo_equipamento from vistoria v inner join 
+            sala s on v.id_sala=s.id inner join equipamento e on v.id_equipamento=e.id 
+            inner join tipoequipamento te on e.id_tipoequipamento = te.id`)
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
@@ -14,7 +15,7 @@ router.get('/', async(req, res)=> {
         })
     }
 });
-
+//select re.*, p.email as emailpr,p.login as prologin,u.login from reservaSala re inner join  professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala left join usuario u on u.id=re.id_usuario
 
 /* GET /vistorias/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
