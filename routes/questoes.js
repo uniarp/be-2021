@@ -24,7 +24,7 @@ router.post('/cadastrar', async(req, res, next)=> {
         await pool.query(
             "INSERT INTO questao  (pergunta, resposta) VALUES($1,$2) RETURNING *",[pergunta,resposta]
         );
-        res.status(400).send({
+        res.status(200).send({
             messagem:"Questão cadastrada com sucesso"
         })     
     } catch (error) {
