@@ -5,7 +5,8 @@ var router = express.Router();
 /* GET /disciplinas */
 router.get('/', async(req, res)=> {
     try{
-        const query = await pool.query(`SELECT * FROM disciplina disc INNER JOIN professor p
+        const query = await pool.query(`SELECT disc.*,p.nomecompleto as nomeProfessor,c.nome as nome_curso
+                                         FROM disciplina disc INNER JOIN professor p
                                         ON disc.id_professor=p.id INNER JOIN curso c
                                         ON disc.id_curso=c.id`)
         console.log(query.rows)
