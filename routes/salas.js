@@ -14,6 +14,21 @@ router.get('/', async (req, res)=> {
    
 });
 
+/* POST /salas/{id}/encontrarSalas */
+router.post('/:id/encontrar', async (req, res)=> {
+    try {
+            data = {id : req.params.id} 
+            const query = await pool.query(`SELECT * FROM sala 
+                            WHERE id='${data.id}'`)
+            res.status(200).json(query.rows)
+    } catch (error) {
+            res.status(400).send({
+                mensagem:error.message
+            })     
+    }
+   
+});
+
 /* POST /salas/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
     try{
