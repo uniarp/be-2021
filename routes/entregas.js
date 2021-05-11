@@ -5,10 +5,12 @@ var router = express.Router();
 /* GET /entregas */
 router.get('/', async(req, res)=>{
    try{
-       const query = await pool.query(`SELECT * FROM entrega ent INNER JOIN professor pro
-                        ON ent.id_professor=pro.id INNER JOIN material mat 
-                        ON ent.id_material=mat.id INNER JOIN usuario usr
-                        ON ent.id_usuario=usr.id`) 
+       const query = await pool.query(`SELECT 
+            ent.*, pro.nomeCompleto, mat.nome AS nomeMaterial
+            FROM entrega ent INNER JOIN professor pro
+                               ON ent.id_professor=pro.id INNER JOIN material mat 
+                               ON ent.id_material=mat.id INNER JOIN usuario usr
+                               ON ent.id_usuario=usr.id`) 
         res.status(200).json(query.rows)
    }catch (error) {
        res.status(400).send({
@@ -20,17 +22,19 @@ router.get('/', async(req, res)=>{
 /* POST /entregas/cadastrar */
 router.post('/cadastrar', async(req, res)=>{
     try {
+        console.log(req.body);
         const data = {
             data : req.body.data,
             qtd : req.body.qtd,
-            id_professor : req.body.id_professor,
-            id_material : req.body.id_material,
-            id_usuario : req.body.id_usuario
+            id_professor : req.body.professor,
+            id_material : req.body.material,
+            id_usuario : req.body.usuario.id
         };
         const query = `INSERT INTO entrega (data, qtd, id_professor, id_material, id_usuario)
                         VALUES ('${data.data}','${data.qtd}','${data.id_professor}',
                         '${data.id_material}','${data.id_usuario}')`
-        await pool.query(query)
+        console.log(query);
+                        await pool.query(query)
         console.log(data)
         res.status(200).send({
             mensagem : "Cadastro bem sucedido!"
@@ -65,8 +69,8 @@ router.post('/:id/alterar',async(req, res)=>{
                 id : req.params.id,
                 data: req.body.data,
                 qtd: req.body.qtd,
-                id_professor : req.body.id_professor,
-                id_material : req.body.id_material,
+                id_professor : req.body.professor,
+                id_material : req.body.material,
                 id_usuario : req.body.id_usuario
         };
         const query = `UPDATE entrega SET data='${data.data}',
