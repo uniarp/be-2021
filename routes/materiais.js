@@ -16,11 +16,13 @@ router.get('/', async (req, res)=> {
 /* POST /materiais/cadastrar */
 router.post('/cadastrar', async (req, res)=> {
     try{
+        const data= {
         nome = req.body.nome,
         qtd = req.body.qtd,
         descricao = req.body.descricao,
         marca = req.body.marca
-        await pool.query("insert into material (nome,qtd,descricao,marca) values ($1,$2,$3,$4,$5) RETURNING *",[nome,qtd,descricao,marca]
+        };
+        await pool.query("insert into material (nome,qtd,descricao,marca) values ($1,$2,$3,$4,$5) RETURNING *",[data.nome,data.qtd,data.descricao,data.marca]
         );
         res.status(200).send({
             mensagem:"Material cadastrado com sucesso"
