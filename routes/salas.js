@@ -32,17 +32,15 @@ router.post('/:id/encontrar', async (req, res)=> {
 /* POST /salas/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
     try{
-        const numero = req.body.numero
-        const localizacao = {
-            bloco : req.body.localizacao.bloco,
-            andar : req.body.localizacao.andar
-            }
-        const capacidade = req.body.capacidade
-
-        await pool.query(`INSERT INTO sala (numerosala, localizacao, capacidade)
-         VALUES($1,$2,$3) RETURNING 
-         *`,[numero, localizacao,capacidade]
-        );
+        const data = {
+            numero : req.body.numero,
+            capacidade : req.body.capacidade,
+            bloco : req.body.bloco,
+            andar : req.body.andar,
+        };
+        const query = `INSERT INTO sala (numerosala, capacidade, bloco, andar)
+            VALUES('${data.numero}','${data.capacidade}','${data.bloco}','${data.andar}')`
+        await pool.query(query);
         res.status(200).send({
             mensagem:"Salas cadastrada com sucesso"
         })
@@ -54,29 +52,33 @@ router.post('/cadastrar', async(req, res)=> {
 })
 
 /* POST /salas/{id}/alterar. */
-router.post('/:id_sala/alterar', async(req, res, next)=>{
+router.post('/:id/alterar', async(req, res)=>{
     try {
-        const id = req.params.id_sala
-        const numero = req.body.numero
-        const localizacao = {
-            bloco : req.body.localizacao.bloco,
-            andar : req.body.localizacao.andar
-            }
-        const capacidade = req.body.capacidade
-    
-        await pool.query("UPDATE sala SET numerosala=$1, localizacao=$2, capacidade=$3 WHERE id=$4",[numero,localizacao,capacidade,id]);
+        const data = {
+            id : req.params.id,
+            numero : req.body.numero,
+            capacidade : req.body.capacidade,
+            bloco : req.body.bloco,
+            andar : req.body.andar,
+        };
+        console.log(data)
+        const query = `UPDATE sala SET numerosala='${data.numero}',
+                     capacidade='${data.capacidade}',
+                     bloco='${data.bloco}', 
+                     andar='${data.andar}' WHERE id='${data.id}'`
+        await pool.query(query)
         res.status(200).send({
             message:'Sala alterada com sucesso'
         })  
     } catch (error) {
         res.status(304).send({
-            mensagem:err.message
+            mensagem:error.message
         })    
     }
 });
 
 /* GET /salas/{id}/excluir. */
-router.get('/:id_sala/excluir', async(req, res, next)=> {
+router.get('/:id_sala/excluir', async(req, res)=> {
     try{
         const id=req.params.id_sala
         const ok =await pool.query('delete from sala where id=$1',[id]);
