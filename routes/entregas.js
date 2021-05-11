@@ -5,12 +5,12 @@ var router = express.Router();
 /* GET /entregas */
 router.get('/', async(req, res)=>{
    try{
-       const query = await pool.query(`SELECT 
-            ent.*, pro.nomeCompleto, mat.nome AS nomeMaterial
-            FROM entrega ent INNER JOIN professor pro
-                               ON ent.id_professor=pro.id INNER JOIN material mat 
-                               ON ent.id_material=mat.id INNER JOIN usuario usr
-                               ON ent.id_usuario=usr.id`) 
+       const query = await pool.query(`SELECT ent.*,pro.nomecompleto as nome_professor,
+                        mat.nome as nome_material, usr.login as login
+                            FROM entrega ent INNER JOIN professor pro
+                            ON ent.id_professor=pro.id INNER JOIN material mat 
+                            ON ent.id_material=mat.id INNER JOIN usuario usr
+                            ON ent.id_usuario=usr.id`) 
         res.status(200).json(query.rows)
    }catch (error) {
        res.status(400).send({
