@@ -4,7 +4,7 @@ const pool =require('../bd')
 /* GET /vistorias */
 router.get('/', async(req, res)=> {
     try{
-        const query = await pool.query(`select v.*,s.numerosala,s.localizacao,e.marca as marca_equipamento,
+        const query = await pool.query(`select v.*,s.numerosala,s.bloco,s.andar,e.marca as marca_equipamento,
             e.modelo as modelo_equipamento,te.nome as tipo_equipamento from vistoria v inner join 
             sala s on v.id_sala=s.id inner join equipamento e on v.id_equipamento=e.id 
             inner join tipoequipamento te on e.id_tipoequipamento = te.id`)
