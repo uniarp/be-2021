@@ -78,10 +78,11 @@ router.post('/:id/alterar', async(req, res)=>{
 });
 
 /* GET /salas/{id}/excluir. */
-router.get('/:id_sala/excluir', async(req, res)=> {
+router.get('/:id/excluir', async(req, res)=> {
     try{
-        const id=req.params.id_sala
-        const ok =await pool.query('delete from sala where id=$1',[id]);
+        const id = req.params.id;
+        const query = `DELETE FROM sala WHERE id='${id}'`;
+        await pool.query(query)
         res.status(200).send({
             mensagem:"Sala  excluida com sucesso"
         });
