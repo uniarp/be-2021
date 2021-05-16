@@ -18,6 +18,24 @@ router.get('/', async (req, res)=>{
     } 
 });
 
+// lista de reservas de equipamento solicitadas
+router.get('/solicitada',async(req,res)=>{
+    try{
+        var query=await pool.query(`select re.* ,e.marca as marca_equipamento,
+        e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+        te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+        u.nivel as nivel_usuario from reservaequipamento re inner join equipamento e
+        on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+        inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario where re.status='solicitada' order by  re.id asc`)
+        res.status(200).json(query.rows)
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    } 
+})
+
+
 /* POST /reservasEquipamento/cadastrar */
 router.post('/cadastrar', async (req, res)=> {
     const data = {

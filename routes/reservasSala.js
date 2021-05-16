@@ -5,9 +5,26 @@ const pool =require('../bd')
 router.get('/', async(req, res)=> {
     try{
         const query = await pool.query(`select re.*,p.nomecompleto as nome_professor,p.email as 
-        email_professor,s.numerosala,s.localizacao,u.nomecompleto as nome_usuario,u.email as 
+        email_professor,s.numerosala,s.bloco,s.andar,u.nomecompleto as nome_usuario,u.email as 
         email_usuario,u.nivel as nivel_usuario from reservaSala re inner join  
         professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala left join usuario u on u.id=re.id_usuario`)
+        res.status(200).json(query.rows)
+    }catch(error){
+        res.status(400).send({
+            mensagem:error.message
+        })
+    }
+  
+});
+
+//Lista-espera-sala
+router.get('/solicitada', async(req, res)=> {
+    try{
+        var query = await pool.query(`select re.*,p.nomecompleto as nome_professor,p.email as 
+        email_professor,s.numerosala,s.bloco,s.andar,u.nomecompleto as nome_usuario,u.email as 
+        email_usuario,u.nivel as nivel_usuario from reservaSala re inner join  
+        professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala left join usuario 
+        u on u.id=re.id_usuario where re.status='solicitada'  order by  re.id asc `)
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
