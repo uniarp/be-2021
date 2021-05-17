@@ -30,7 +30,7 @@ router.post('/cadastrar', async(req, res)=> {
         };
         const query = `INSERT INTO disciplina (nome, periodo, diasemana, id_professor, id_curso)
                         VALUES ('${data.nome}','${data.periodo}',ARRAY[${data.diaSemana}],
-                        '${data.id_professor}','${data.id_curso}')`
+                        ${data.id_professor},${data.id_curso})`
         await pool.query(query)
         console.log(data)
         res.status(200).send({
@@ -55,8 +55,8 @@ router.post('/:id/alterar', async(req, res)=> {
             id_curso : req.body.id_curso
         };
         const query = `UPDATE disciplina SET nome='${data.nome}',
-                        periodo='${data.periodo}',diasemana='${data.diaSemana}',
-                        id_professor='${data.id_professor}', id_curso='${data.id_curso}'
+                        periodo='${data.periodo}',diasemana=ARRAY[${data.diaSemana}],
+                        id_professor=${data.id_professor}, id_curso=${data.id_curso}
                          WHERE id='${data.id}'`;
         await pool.query(query)
         res.status(200).send({
