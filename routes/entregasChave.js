@@ -20,8 +20,8 @@ router.get('/', async(req, res)=> {
 router.post('/cadastrar', async(req, res)=> {
     const data = {
         dataHoraEntrega : req.body.dataHoraEntrega,
-        id_chave:req.body.id_chave,
-        id_professor:req.body.id_professor
+        id_chave:req.body.chave,
+        id_professor:req.body.professor
     };
     try{
         await pool.query(`insert into entregachave (datahoraentrega,id_professor,id_chave) values(
