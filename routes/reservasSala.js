@@ -96,4 +96,16 @@ router.get('/:id_reservasala/excluir', async(req, res, next) => {
     }
 });
 
+router.get('/:id/buscar',async(req,res)=>{
+    try{
+        var query = await pool.query(`select re.*,p.nomecompleto as nome_professor,s.numerosala,s.bloco,s.andar from reservaSala re inner join  
+        professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala where re.status='solicitada'  order by  re.id asc `)
+        res.status(200).json(query.rows)
+    }catch(error){
+        res.status(400).send({
+            mensagem:error.message
+        })
+    }
+})
+
 module.exports = router;
