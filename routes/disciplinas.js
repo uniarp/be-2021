@@ -29,7 +29,7 @@ router.post('/cadastrar', async(req, res)=> {
             id_curso : req.body.id_curso
         };
         const query = `INSERT INTO disciplina (nome, periodo, diasemana, id_professor, id_curso)
-                        VALUES ('${data.nome}','${data.periodo}','${data.diaSemana}',
+                        VALUES ('${data.nome}','${data.periodo}',ARRAY[${data.diaSemana}],
                         '${data.id_professor}','${data.id_curso}')`
         await pool.query(query)
         console.log(data)
