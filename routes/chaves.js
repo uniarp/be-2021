@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', async(req, res)=> {
     try {
         const query = await pool.query(`SELECT chave.*, sala.numerosala FROM chave 
-            INNER JOIN sala ON chave.id_sala=s.id`);
+            INNER JOIN sala ON chave.id_sala=sala.id`);
         res.status(200).json(query.rows);
     } catch(error) {
         res.status(400).send({mensagem:error.message});
