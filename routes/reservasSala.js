@@ -96,10 +96,14 @@ router.get('/:id_reservasala/excluir', async(req, res, next) => {
     }
 });
 
+//encontrar sala informando o professor, pela reserva do professor
 router.get('/:id/buscar',async(req,res)=>{
     try{
-        var query = await pool.query(`select re.*,p.nomecompleto as nome_professor,s.numerosala,s.bloco,s.andar from reservaSala re inner join  
-        professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala where re.status='solicitada'  order by  re.id asc `)
+        var query = await pool.query(`
+            select to_char(re.data::DATE,'dd-mm-yyyy') as data,re.id,re.periodo, pr.nomecompleto as 
+            nome_professor,sa.numerosala,sa.bloco,sa.andar from reservasala re inner join professor pr on re.id_professor=pr.id 
+            inner join sala sa on re.id_sala=sa.id where data>=NOW()::date order by data desc limit 6` 
+        );
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
