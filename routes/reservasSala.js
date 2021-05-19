@@ -102,7 +102,7 @@ router.get('/:id/buscar',async(req,res)=>{
         var query = await pool.query(`
             select to_char(re.data::DATE,'dd-mm-yyyy') as data,re.id,re.periodo, pr.nomecompleto as 
             nome_professor,sa.numerosala,sa.bloco,sa.andar from reservasala re inner join professor pr on re.id_professor=pr.id 
-            inner join sala sa on re.id_sala=sa.id where data>=NOW()::date order by data desc limit 6` 
+            inner join sala sa on re.id_sala=sa.id where data>=NOW()::date order by data asc limit 6` 
         );
         res.status(200).json(query.rows)
     }catch(error){
