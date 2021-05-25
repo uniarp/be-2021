@@ -25,9 +25,10 @@ router.post('/cadastrar', async(req, res)=> {
             nome : req.body.nome,
             periodo : req.body.periodo,
             diaSemana : req.body.diaSemana,
-            id_professor : req.body.id_professor,
-            id_curso : req.body.id_curso
+            id_professor : req.body.professor,
+            id_curso : req.body.curso
         };
+        console.log(data);
         const query = `INSERT INTO disciplina (nome, periodo, diasemana, id_professor, id_curso)
                         VALUES ('${data.nome}','${data.periodo}',ARRAY[${data.diaSemana}],
                         ${data.id_professor},${data.id_curso})`
@@ -51,8 +52,8 @@ router.post('/:id/alterar', async(req, res)=> {
             nome : req.body.nome,
             periodo : req.body.periodo,
             diaSemana : req.body.diaSemana,
-            id_professor : req.body.id_professor,
-            id_curso : req.body.id_curso
+            id_professor : req.body.professor,
+            id_curso : req.body.curso
         };
         const query = `UPDATE disciplina SET nome='${data.nome}',
                         periodo='${data.periodo}',diasemana=ARRAY[${data.diaSemana}],
