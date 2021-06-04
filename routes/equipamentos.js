@@ -4,11 +4,11 @@ const pool = require('../bd')
 
 /* GET /equipamentos/ */
 router.get('/', async(req, res)=> {
-    try{
-        const query = await pool.query(`SELECT * FROM equipamento equip INNER JOIN tipoequipamento tp
-                        ON equip.id_tipoequipamento=tp.id INNER JOIN sala s
-                        ON equip.id_sala=s.id`)
-        res.status(200).json(query.rows)
+    try {
+        const query = await pool.query(`SELECT e.*, te.nome, s.numerosala  FROM equipamento e INNER JOIN tipoequipamento te
+                        ON e.id_tipoequipamento=te.id INNER JOIN sala s
+                        ON e.id_sala=s.id`);
+        res.status(200).json(query.rows);
     }catch (error) {
         res.status(400).send({
             mensagem : error.message
@@ -23,12 +23,12 @@ router.post('/cadastrar', async(req, res)=> {
             dataAquisicao : req.body.dataAquisicao,
             marca : req.body.marca,
             modelo : req.body.modelo,
-            id_tipoequipamento : req.body.id_tipoequipamento,
-            id_sala : req.body.id_sala
+            status : req.body.status,
+            id_tipoequipamento : req.body.tipoEquipamento,
+            id_sala : req.body.sala
         };
-        const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento, id_sala)
-                        VALUES ('${data.dataAquisicao}','${data.marca}','${data.modelo}',
-                        '${data.id_tipoequipamento}','${data.id_sala}')`
+        const query = `INSERT INTO equipamento (dataaquisicao, marca, modelo, id_tipoequipamento, id_sala, status)
+                        VALUES ('${data.dataAquisicao}','${data.marca}','${data.modelo}',${data.id_tipoequipamento},${data.id_sala},'${data.status}')`
         await pool.query(query)
         console.log(data)
         res.status(200).send({
