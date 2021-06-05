@@ -4,8 +4,6 @@ const pool =require('../bd')
 /* GET reservasSala */
 router.get('/', async(req, res)=> {
     try{
-        const quer = await pool.query('select now()')
-        console.log(quer.rows);
         const query = await pool.query(`select re.*,p.nomecompleto as nome_professor,p.email as 
         email_professor,s.numerosala,s.bloco,s.andar,u.nomecompleto as nome_usuario,u.email as 
         email_usuario,u.nivel as nivel_usuario from reservaSala re inner join  
@@ -45,10 +43,6 @@ router.post('/cadastrar', async(req, res)=> {
         const periodo = req.body.periodo
         const idprofessor = req.body.professor
         const id_sala = req.body.sala
-        // alter table plan add column
-        // plan_datecreation TIMESTAMPTZ DEFAULT Now()
-//         SET TIME ZONE 'America/Port-au-Prince'
-// alter table aspredht_db1 set timezone to 'America/Port-au-Prince'
         await pool.query(
             "INSERT INTO reservasala (data, qtdalunos, status,periodo,id_professor,id_sala) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",[data,qtdAlunos,status,periodo,idprofessor,id_sala]
         );
