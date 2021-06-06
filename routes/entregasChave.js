@@ -5,9 +5,11 @@ var router = express.Router();
 /* GET /entregasChave/ */
 router.get('/', async(req, res)=> {
     try{
-        const query = await pool.query(`SELECT * FROM entregachave ec inner 
-            join chave c on ec.id_chave=c.id inner join sala s on s.id=c.id_sala
-            inner join professor p on p.id=ec.id_professor`)
+        const query = await pool.query(`
+            select ec.*,p.nomecompleto as nome_professor, s.numerosala, ch.id as id_chave from entregachave ec inner join 
+            reservasala re on ec.id_reservasala=re.id inner join sala s on s.id=re.id_sala inner join professor
+            p on p.id=re.id_professor inner join chave ch on ch.id_sala=s.id
+        `)
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
@@ -16,16 +18,17 @@ router.get('/', async(req, res)=> {
     }
 });
 
+
 /* POST /entregasChave/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
     const data = {
         dataHoraEntrega : req.body.dataHoraEntrega,
-        id_chave:req.body.chave,
-        id_professor:req.body.professor
+        id_reservasala:req.body.reservasala,
+        status:req.body.status
     };
     try{
-        await pool.query(`insert into entregachave (datahoraentrega,id_professor,id_chave) values(
-            $1,$2,$3) RETURNING *`,[data.dataHoraEntrega,data.id_professor,data.id_chave]
+        await pool.query(`insert into entregachave (datahoraentrega,id_reservasala,status) values(
+            $1,$2,$3) RETURNING *`,[data.dataHoraEntrega,data.id_reservasala,data.status]
         );
         res.status(200).send({
             mensagem:"Dados cadastrados com sucesso"
@@ -35,7 +38,7 @@ router.post('/cadastrar', async(req, res)=> {
             mensagem:err.message
         })
     }
-})
+});
 
 /* POST /entregasChave/{id}/alterar. */
 router.post('/:id_entregaChave/alterar', async(req, res)=> {
@@ -43,12 +46,12 @@ router.post('/:id_entregaChave/alterar', async(req, res)=> {
     const data = {
         dataHoraEntrega : req.body.dataHoraEntrega,
         dataHoraDevolucao : req.body.dataHoraDevolucao,
-        id_chave:req.body.id_chave,
-        id_professor:req.body.id_professor
+        id_reservasala:req.body.reservasala,
+        status:req.body.status
     };
     try{
-        await pool.query(`UPDATE entregachave SET datahoraentrega=$1, datahoradevolucao=$2,id_professor=$3,
-        id_chave=$4 WHERE id=$5`,[data.dataHoraEntrega,data.dataHoraDevolucao,data.id_professor,data.id_chave,id]);
+        await pool.query(`UPDATE entregachave SET datahoraentrega=$1, datahoradevolucao=$2,id_reservasala=$3, status=$4
+         WHERE id=$5`,[data.dataHoraEntrega,data.dataHoraDevolucao,data.id_reservasala,data.status,id]);
         res.status(200).send({
             message:'Dados alterados com sucesso'
         })
@@ -73,5 +76,23 @@ router.get('/:id_entregaChave/excluir', async(req, res)=> {
         })
     }
 });
-
+router.post('/:id/updatestatus', async(req, res)=> {
+    const id_reserva=req.params.id
+    const data={
+        status:req.body.status,
+        dataDevolucao:req.body.dataDevolucao
+    }
+    try{
+        await pool.query(`update entregachave set status=$1,datahoradevolucao=$2
+         where id_reservasala=$3`,[data.status,data.dataDevolucao,id_reserva]
+        )
+        res.status(200).send({
+            message:'Dados alterados com sucesso'
+        })
+    }catch(err){
+        res.status(304).send({
+            mensagem:err.message
+        })
+    }
+});
 module.exports = router;

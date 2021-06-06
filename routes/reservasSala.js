@@ -9,7 +9,6 @@ router.get('/', async(req, res)=> {
             LEFT JOIN sala s ON rs.id_sala = s.id
             LEFT JOIN usuario u ON rs.id_usuario = u.id
             LEFT JOIN professor p ON rs.id_professor = p.id`,);
-        console.log(query.rows);
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
@@ -45,10 +44,6 @@ router.post('/cadastrar', async(req, res)=> {
         const periodo = req.body.periodo
         const idprofessor = req.body.professor
         const id_sala = req.body.sala
-        // alter table plan add column
-        // plan_datecreation TIMESTAMPTZ DEFAULT Now()
-//         SET TIME ZONE 'America/Port-au-Prince'
-// alter table aspredht_db1 set timezone to 'America/Port-au-Prince'
         await pool.query(
             "INSERT INTO reservasala (data, qtdalunos, status,periodo,id_professor,id_sala) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",[data,qtdAlunos,status,periodo,idprofessor,id_sala]
         );
