@@ -18,9 +18,9 @@ router.get('/', async(req, res)=> {
     }
 });
 
+
 /* POST /entregasChave/cadastrar */
 router.post('/cadastrar', async(req, res)=> {
-    console.log(req)
     const data = {
         dataHoraEntrega : req.body.dataHoraEntrega,
         id_reservasala:req.body.reservasala,
@@ -76,5 +76,23 @@ router.get('/:id_entregaChave/excluir', async(req, res)=> {
         })
     }
 });
-
+router.post('/:id/updatestatus', async(req, res)=> {
+    const id_reserva=req.params.id
+    const data={
+        status:req.body.status,
+        dataDevolucao:req.body.dataDevolucao
+    }
+    try{
+        await pool.query(`update entregachave set status=$1,datahoradevolucao=$2
+         where id_reservasala=$3`,[data.status,data.dataDevolucao,id_reserva]
+        )
+        res.status(200).send({
+            message:'Dados alterados com sucesso'
+        })
+    }catch(err){
+        res.status(304).send({
+            mensagem:err.message
+        })
+    }
+});
 module.exports = router;
