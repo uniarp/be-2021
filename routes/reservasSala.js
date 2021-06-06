@@ -3,14 +3,12 @@ var router = express.Router();
 const pool =require('../bd')
 /* GET reservasSala */
 router.get('/', async(req, res)=> {
-    try{
-        const query = await pool.query(`
-            select re.*,ec.status as status_entregachave, p.nomecompleto as nome_professor,p.email as 
-            email_professor,s.numerosala,s.bloco,s.andar,u.nomecompleto as nome_usuario,u.email as 
-            email_usuario,u.nivel as nivel_usuario from reservaSala re inner join  
-            professor p on p.id = re.id_professor inner join sala s on s.id=re.id_sala left join usuario u 
-            on u.id=re.id_usuario left join entregachave ec on ec.id_reservasala=re.id`
-        )
+    try {
+        const query = await pool.query(`SELECT rs.*, s.numerosala, u.nomecompleto as nome_usuario, p.nomecompleto as nome_professor 
+            FROM reservasala rs
+            LEFT JOIN sala s ON rs.id_sala = s.id
+            LEFT JOIN usuario u ON rs.id_usuario = u.id
+            LEFT JOIN professor p ON rs.id_professor = p.id`,);
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
