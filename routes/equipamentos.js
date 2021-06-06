@@ -5,9 +5,11 @@ const pool = require('../bd')
 /* GET /equipamentos/ */
 router.get('/', async(req, res)=> {
     try {
-        const query = await pool.query(`SELECT e.*, te.nome, s.numerosala  FROM equipamento e INNER JOIN tipoequipamento te
-                        ON e.id_tipoequipamento=te.id INNER JOIN sala s
-                        ON e.id_sala=s.id`);
+        const query = await pool.query(`SELECT e.*, te.nome, s.numerosala 
+            FROM equipamento e
+            INNER JOIN tipoequipamento te
+            ON e.id_tipoequipamento=te.id INNER JOIN sala s
+            ON e.id_sala=s.id`);
         res.status(200).json(query.rows);
     }catch (error) {
         res.status(400).send({
