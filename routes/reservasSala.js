@@ -4,11 +4,13 @@ const pool =require('../bd')
 /* GET reservasSala */
 router.get('/', async(req, res)=> {
     try {
-        const query = await pool.query(`SELECT rs.*, s.numerosala, u.nomecompleto as nome_usuario, p.nomecompleto as nome_professor 
+        const query = await pool.query(
+            `SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, p.nomecompleto as nome_professor 
             FROM reservasala rs
-            LEFT JOIN sala s ON rs.id_sala = s.id
-            LEFT JOIN usuario u ON rs.id_usuario = u.id
-            LEFT JOIN professor p ON rs.id_professor = p.id`,);
+            INNER JOIN sala s ON rs.id_sala = s.id
+            INNER JOIN professor p ON rs.id_professor = p.id
+            LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+            LEFT JOIN usuario u ON rs.id_usuario = u.id`,);
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
