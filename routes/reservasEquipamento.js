@@ -35,6 +35,132 @@ router.get('/solicitada',async(req,res)=>{
     } 
 })
 
+// listar reservas filtrando pela dataEntrega
+router.get('/peladataentrega', async (req, res)=>{
+    const date={
+        data_min:req.body.data_min,
+        data_max:req.body.data_max
+    }
+    try{
+        if(date.data_max==null && date.data_min!=null){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where dataentrega>=$1 order by dataentrega asc`,[date.data_min]
+            )
+            res.status(200).json(query.rows)
+        }else if(date.data_max!=null & date.data_min!=null & date.data_min<date.data_max){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where dataentrega between $1 and $2 order by dataentrega asc`,[date.data_min, date.data_max]
+            )
+            res.status(200).json(query.rows)
+        }
+        else{
+            res.status(400).send({mensagem:"Informe uma data valida"})
+        }
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    } 
+});
+
+// listar reservas filtrando pela dataDevolucao
+router.get('/peladatadevolucao', async (req, res)=>{
+    const date={
+        data_min:req.body.data_min,
+        data_max:req.body.data_max
+    }
+    try{
+        if(date.data_max==null && date.data_min!=null){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where datadevolucao>=$1 order by datadevolucao asc`,[date.data_min]
+            )
+            res.status(200).json(query.rows)
+        }else if(date.data_max!=null & date.data_min!=null & date.data_min<date.data_max){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where datadevolucao between $1 and $2 order by datadevolucao asc`,[date.data_min, date.data_max]
+            )
+            res.status(200).json(query.rows)
+        }
+        else{
+            res.status(400).send({mensagem:"Informe uma data valida"})
+        }
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    } 
+});
+
+
+// listar reservas filtrando pela data do cadastro da reserva
+router.get('/peladatacadastro', async (req, res)=>{
+    const date={
+        data_min:req.body.data_min,
+        data_max:req.body.data_max
+    }
+
+    try{
+        if(date.data_max==null && date.data_min!=null){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where datacriacao>=$1 order by datacriacao asc`,[date.data_min]
+            )
+            res.status(200).json(query.rows)
+        }else if(date.data_max!=null & date.data_min!=null & date.data_min<date.data_max){
+            const query=await pool.query(`
+                select re.* ,e.marca as marca_equipamento,
+                    e.modelo as modelo_equipamento, p.nomecompleto as nome_professor, p.email as email_professor,
+                    te.nome as tipo_equipamento, u.nomecompleto as nome_usuario,u.email as email_usuario,
+                    u.nivel as nivel_usuario 
+                from reservaequipamento re inner join equipamento e
+                    on re.id_equipamento = e.id inner join professor p on re.id_professor=p.id
+                    inner join tipoequipamento te on e.id_tipoequipamento =te.id left join usuario u on u.id=re.id_usuario
+                where datacriacao between $1 and $2 order by datacriacao asc`,[date.data_min, date.data_max]
+            )
+            res.status(200).json(query.rows)
+        }else{
+            res.status(400).send({mensagem:"Informe uma data valida"})
+        }
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    } 
+});
 
 /* POST /reservasEquipamento/cadastrar */
 router.post('/cadastrar', async (req, res)=> {

@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
 const pool =require('../bd')
-/* GET reservasSala */
+/* Listar todas as reservas */
 router.get('/', async(req, res)=> {
-    try {
-        const query = await pool.query(
-            `SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, p.nomecompleto as nome_professor 
+    try{
+        const query = await pool.query(`
+            SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, 
+                p.nomecompleto as nome_professor 
             FROM reservasala rs
-            INNER JOIN sala s ON rs.id_sala = s.id
-            INNER JOIN professor p ON rs.id_professor = p.id
-            LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
-            LEFT JOIN usuario u ON rs.id_usuario = u.id`,);
+                INNER JOIN sala s ON rs.id_sala = s.id
+                INNER JOIN professor p ON rs.id_professor = p.id
+                LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+                LEFT JOIN usuario u ON rs.id_usuario = u.id
+        `)
         res.status(200).json(query.rows)
     }catch(error){
         res.status(400).send({
@@ -19,6 +21,86 @@ router.get('/', async(req, res)=> {
     }
   
 });
+// listar reservas filtrando pela data da reserva
+router.get('/peladatareserva',async(req,res)=>{
+    const date={
+        data_min:req.body.data_min,
+        data_max:req.body.data_max
+    }
+    try{
+        if(date.data_max==null && date.data_min!=null){
+            const query = await pool.query(`
+                SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, 
+                    p.nomecompleto as nome_professor 
+                FROM reservasala rs
+                    INNER JOIN sala s ON rs.id_sala = s.id
+                    INNER JOIN professor p ON rs.id_professor = p.id
+                    LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+                    LEFT JOIN usuario u ON rs.id_usuario = u.id 
+                where data>=$1 order by data asc
+            `, [date.data_min])
+            res.status(200).json(query.rows)
+        }else if(date.data_max!=null & date.data_min!=null & date.data_min < date.data_max){
+            const query = await pool.query(`
+                SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, 
+                    p.nomecompleto as nome_professor 
+                FROM reservasala rs
+                    INNER JOIN sala s ON rs.id_sala = s.id
+                    INNER JOIN professor p ON rs.id_professor = p.id
+                    LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+                    LEFT JOIN usuario u ON rs.id_usuario = u.id 
+                where data between $1 and $2 order by data asc
+            `, [date.data_min,date.data_max])
+            res.status(200).json(query.rows)
+        }else{
+            res.status(400).send({mensagem:"Informe uma data valida"})
+        }
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    }
+})
+
+// listar reservas filtrando pela data do cadastro da reserva
+router.get('/peladatacadastro',async(req,res)=>{
+    const date={
+        data_min:req.body.data_min,
+        data_max:req.body.data_max
+    }
+    try{
+        if(date.data_max==null && date.data_min!=null){
+            const query = await pool.query(`
+                SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, 
+                    p.nomecompleto as nome_professor 
+                FROM reservasala rs
+                    INNER JOIN sala s ON rs.id_sala = s.id
+                    INNER JOIN professor p ON rs.id_professor = p.id
+                    LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+                    LEFT JOIN usuario u ON rs.id_usuario = u.id 
+                where datacriacao>=$1 order by datacriacao asc
+            `, [date.data_min])
+            res.status(200).json(query.rows)
+        }else if(date.data_max!=null & date.data_min!=null & date.data_min < date.data_max){
+            const query = await pool.query(`
+                SELECT rs.*, ec.status as status_entregachave, s.numerosala, u.nomecompleto as nome_usuario, p.nomecompleto as nome_professor 
+                FROM reservasala rs
+                    INNER JOIN sala s ON rs.id_sala = s.id
+                    INNER JOIN professor p ON rs.id_professor = p.id
+                    LEFT JOIN entregachave ec on ec.id_reservasala=rs.id
+                    LEFT JOIN usuario u ON rs.id_usuario = u.id 
+                where datacriacao between $1 and $2 order by datacriacao asc
+            `, [date.data_min,date.data_max])
+            res.status(200).json(query.rows)
+        }else{
+            res.status(400).send({mensagem:"Informe uma data valida"})
+        }
+    }catch(err){
+        res.status(400).send({
+            mensagem:err.message
+        })
+    }
+})
 
 //Lista-espera-sala
 router.get('/solicitada', async(req, res)=> {
