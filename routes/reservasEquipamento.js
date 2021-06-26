@@ -230,5 +230,36 @@ router.get('/:id/excluir',async(req, res)=>{
         })
     }
 });
-
+router.post('/:id/entregar', async(req, res)=>{
+    const id = req.params.id
+    console.log(req.body.data, id)
+    try{
+        const data = req.body.data
+        const status = "Entregue"
+        await pool.query(`update reservaequipamento set dataentrega=$1,status=$2 where id=$3`,[data,status,id])       
+        res.status(200).send({
+            message:'reserva de equipamento alterada com sucesso'
+        })
+    }catch(err){
+        res.status(304).send({
+            mensagem:err.message
+        })
+    }
+});
+router.post('/:id/devolver', async(req, res)=>{
+    const id = req.params.id
+    console.log(req.body.data, id)
+    try{
+        const data = req.body.data
+        const status = "Devolvido"
+        await pool.query(`update reservaequipamento set dataentrega=$1,status=$2 where id=$3`,[data,status,id])       
+        res.status(200).send({
+            message:'reserva de equipamento devolvida com sucesso'
+        })
+    }catch(err){
+        res.status(304).send({
+            mensagem:err.message
+        })
+    }
+});
 module.exports = router;
