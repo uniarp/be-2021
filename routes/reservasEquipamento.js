@@ -216,11 +216,11 @@ router.post('/:id/alterar', async (req, res) => {
     }
 });
 
-/* GET /reservasEquipamento/{id}/excluir */
-router.get('/:id/excluir', async (req, res) => {
+/* DELETE /reservasEquipamento/{id}/excluir */
+router.delete('/:id/excluir', async (req, res) => {
     try {
         const id = req.params.id
-        await pool.query(`delete from reservaequipamento where id='${id}'`);
+        await pool.query('delete from reservaequipamento where id= $1', [id]);
         res.status(200).send({
             mensagem: "Reserva de equipamento excluida com sucesso"
         });
